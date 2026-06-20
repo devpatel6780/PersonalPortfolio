@@ -1,0 +1,70 @@
+[
+  {
+    "id": "summary",
+    "text": "DEV PATEL — Entry-level AI/ML Engineer with hands-on experience building end-to-end machine learning and LLM-powered applications, including RAG systems, semantic search, and scalable inference pipelines. Proficient in Python, SQL, PyTorch, Hugging Face, LangChain, FastAPI, and AWS services such as SageMaker and EC2. Experienced in data preprocessing, ETL pipelines, model evaluation, MLflow experiment tracking, CI/CD workflows, Docker, and vector databases including FAISS and Pinecone. Strong foundation in MLOps, prompt engineering, and deploying production-ready AI solutions with focus on scalability, monitoring, and performance optimization."
+  },
+  {
+    "id": "skills-0",
+    "text": "Dev Patel's skills in Programming include: Python, SQL"
+  },
+  {
+    "id": "skills-1",
+    "text": "Dev Patel's skills in Machine Learning include: Scikit-learn, XGBoost, Pandas, NumPy"
+  },
+  {
+    "id": "skills-2",
+    "text": "Dev Patel's skills in Deep Learning include: PyTorch, TensorFlow"
+  },
+  {
+    "id": "skills-3",
+    "text": "Dev Patel's skills in NLP / LLM include: Hugging Face, OpenAI API, LangChain, Prompt Engineering, RAG, Semantic Search"
+  },
+  {
+    "id": "skills-4",
+    "text": "Dev Patel's skills in Data Engineering include: ETL Pipelines, Data Workflows, Feature Engineering"
+  },
+  {
+    "id": "skills-5",
+    "text": "Dev Patel's skills in Databases include: PostgreSQL, MySQL, MongoDB"
+  },
+  {
+    "id": "skills-6",
+    "text": "Dev Patel's skills in Vector DB include: FAISS, Pinecone"
+  },
+  {
+    "id": "skills-7",
+    "text": "Dev Patel's skills in Cloud include: AWS (S3, EC2, SageMaker), Azure ML"
+  },
+  {
+    "id": "skills-8",
+    "text": "Dev Patel's skills in MLOps include: MLflow (experiment tracking, versioning), CI/CD, Docker"
+  },
+  {
+    "id": "skills-9",
+    "text": "Dev Patel's skills in Deployment include: FastAPI, REST APIs, Model Deployment, Inference Pipelines"
+  },
+  {
+    "id": "skills-10",
+    "text": "Dev Patel's skills in Other include: Git, GitHub Actions, Linux, Spark"
+  },
+  {
+    "id": "experience-0",
+    "text": "AI Engineer Intern at Tempus AI – United States (Apr 2026 – Present). Assisted in developing RAG-based semantic search workflows using embeddings and vector databases such as FAISS and Pinecone. Supported FastAPI-based inference pipeline development for LLM-powered question-answering applications. Worked on preprocessing and ETL workflows for structured and unstructured healthcare datasets. Contributed to AWS SageMaker model deployment and basic monitoring/logging activities. Performed prompt engineering experiments to improve response relevance for LLM applications. Assisted in experiment tracking and model evaluation using MLflow."
+  },
+  {
+    "id": "experience-1",
+    "text": "Research Assistant at University of Wisconsin Milwaukee, USA (Jul 2025 – Mar 2026). Developed deep learning-based multi-class image classification models (EfficientNet-B3, MobileNetV3), achieving 90.63% accuracy on medical imaging datasets. Implemented attention modules (P_scSE, ECA) and advanced preprocessing (MixUp, ROI extraction) to improve minority class prediction and model generalization. Built data processing pipelines for image augmentation and feature extraction, enabling scalable training workflows across multiple datasets. Conducted model evaluation, cross-validation, and interpretability analysis using Grad-CAM to ensure robustness and explainable AI outputs. Optimized training performance using PyTorch and GPU-based workflows, reducing training time and improving convergence efficiency."
+  },
+  {
+    "id": "experience-2",
+    "text": "Junior ML Engineer at HCL Technologies, India (Apr 2022 – Jul 2024). Improved ML model performance by 5–10% through feature engineering, hyperparameter tuning, and data preprocessing using Scikit-learn and XGBoost. Developed end-to-end machine learning pipelines including ETL workflows, model training, and evaluation using Python and SQL. Designed REST API-based deployment solutions using Flask/FastAPI, enabling real-time inference for business analytics applications. Built and supported NLP-based chatbot systems using transformer-based embeddings and early-stage semantic search techniques. Automated model training workflows using Docker and basic CI/CD pipelines, improving model reproducibility and deployment efficiency. Collaborated on data workflows and structured data processing pipelines for large-scale datasets, ensuring data quality and pipeline reliability."
+  },
+  {
+    "id": "education",
+    "text": "Master of Science in Computer Science | University of Wisconsin–Milwaukee, Milwaukee, WI | GPA: 3.38 / 4.00 | May 2026"
+  },
+  {
+    "id": "contact",
+    "text": "You can reach Dev Patel by email at devp70431@gmail.com or by phone at (920) 277–3873, on LinkedIn at linkedin.com/in/devrakeshpatel, or on GitHub at github.com/devpatel6780. He is currently open to remote work opportunities."
+  }
+]
