@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem \"d:\\\\MyPortfolio\" -ErrorAction SilentlyContinue; if \\(-not \\(Test-Path \"d:\\\\MyPortfolio\"\\)\\) { Write-Host \"Directory does not exist\" } else { Write-Host \"Directory exists\" })",
+      "Read(//d/portfolio-temp/**)",
+      "PowerShell(Get-Process -Name \"node\", \"npm\" -ErrorAction SilentlyContinue | Select-Object Id, Name, CPU, @{N=\"RunTime\";E={\\(Get-Date\\) - $_.StartTime}} | Format-Table -AutoSize)",
+      "PowerShell(Get-Process -Id 17592 -ErrorAction SilentlyContinue)"
+    ]
+  }
+}

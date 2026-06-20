@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0a0a0f;
+  --color-fg: #ffffff;
+  --color-neon-blue: #00d4ff;
+  --color-neon-purple: #a855f7;
+  --color-neon-pink: #ec4899;
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0a0f;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+a, button {
+  cursor: none;
+}
+
+::selection {
+  background-color: rgba(0, 212, 255, 0.25);
+}
+
+/* Custom cursor */
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #00d4ff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.15s;
+  transform: translate(-50%, -50%);
+}
+
+@media (pointer: coarse) {
+  body, a, button {
+    cursor: auto;
+  }
+  .custom-cursor {
+    display: none;
+  }
+}
+
+/* Scroll indicator */
+@keyframes scroll-hint {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50%       { transform: translateY(10px); opacity: 1; }
+}
+.animate-scroll-hint {
+  animation: scroll-hint 1.5s ease-in-out infinite;
+}
+
+/* Shimmer for skill bars */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.animate-shimmer {
+  animation: shimmer 2s linear infinite;
+}
