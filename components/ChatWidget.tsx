@@ -10,9 +10,9 @@ interface ChatMessage {
 }
 
 const SUGGESTIONS = [
-  "What is Dev currently working on?",
-  "What's his strongest project?",
-  "What's his tech stack?",
+  "What are you currently working on?",
+  "What's your strongest project?",
+  "What's your tech stack?",
 ];
 
 export function ChatWidget() {
@@ -21,7 +21,7 @@ export function ChatWidget() {
     {
       role: "assistant",
       content:
-        "Hi! I'm an assistant trained on Dev Patel's resume and projects. Ask me anything about his experience, skills, or work.",
+        "Hey, I'm Dev! Well — an AI version of me, trained on my resume and projects. Ask me anything about my experience, skills, or work.",
     },
   ]);
   const [input, setInput] = useState("");
