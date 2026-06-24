@@ -29,6 +29,16 @@ export function Hero() {
             transition={{ duration: 0.8 }}
             className="text-center lg:text-left"
           >
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              className="text-gray-400 mb-3"
+              style={{ fontSize: "1.1rem", fontWeight: 500 }}
+            >
+              Hi, I&apos;m Dev Patel
+            </motion.p>
+
             <motion.h1
               className="mb-6"
               style={{
@@ -51,7 +61,7 @@ export function Hero() {
               style={{ fontSize: "clamp(1.35rem, 3vw, 2.25rem)", fontWeight: 700, lineHeight: 1.3 }}
               className="text-white mb-4"
             >
-              Building AI Systems That Think 🚀
+              Building AI Systems That Think
             </motion.h2>
 
             <motion.p

@@ -4,7 +4,9 @@
       "PowerShell(Get-ChildItem \"d:\\\\MyPortfolio\" -ErrorAction SilentlyContinue; if \\(-not \\(Test-Path \"d:\\\\MyPortfolio\"\\)\\) { Write-Host \"Directory does not exist\" } else { Write-Host \"Directory exists\" })",
       "Read(//d/portfolio-temp/**)",
       "PowerShell(Get-Process -Name \"node\", \"npm\" -ErrorAction SilentlyContinue | Select-Object Id, Name, CPU, @{N=\"RunTime\";E={\\(Get-Date\\) - $_.StartTime}} | Format-Table -AutoSize)",
-      "PowerShell(Get-Process -Id 17592 -ErrorAction SilentlyContinue)"
+      "PowerShell(Get-Process -Id 17592 -ErrorAction SilentlyContinue)",
+      "Bash(cd \"/d/MyPortfolio\" && grep -rn \"🚀\\\\|Heart\\\\|fill-\\\\[#ec4899\\\\]\" components/Hero.tsx components/Footer.tsx components/ui/Nav.tsx 2>/dev/null)",
+      "Read(//d/d/MyPortfolio/components/**)"
     ]
   }
 }

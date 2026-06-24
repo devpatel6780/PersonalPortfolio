@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Heart, ArrowUp } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 
 export function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -31,7 +31,7 @@ export function Footer() {
                 backgroundClip: "text",
               }}
             >
-              AI/ENGINEER
+              Dev Patel
             </h3>
             <p className="text-gray-400 mt-2">Building AI Systems That Think</p>
           </div>
@@ -59,11 +59,9 @@ export function Footer() {
           <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
           <div className="flex flex-col md:flex-row items-center justify-center gap-2 text-gray-400 text-sm">
-            <p>© {new Date().getFullYear()} AI Engineer. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Dev Patel. All rights reserved.</p>
             <span className="hidden md:inline">•</span>
-            <p className="flex items-center gap-1">
-              Built with <Heart className="w-4 h-4 fill-[#ec4899] text-[#ec4899]" /> using Next.js &amp; Framer Motion
-            </p>
+            <p>Built using Next.js &amp; Framer Motion</p>
           </div>
         </div>
       </div>

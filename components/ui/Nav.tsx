@@ -49,7 +49,7 @@ export function Nav() {
                 backgroundClip: "text",
               }}
             >
-              AI/ENGINEER
+              Dev Patel
             </span>
           </a>
 
