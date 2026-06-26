@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { chatComplete } from "@/lib/nvidia";
+import { chatCompleteStream } from "@/lib/nvidia";
 import { retrieveContext } from "@/lib/retrieval";
 
 const MAX_MESSAGE_LENGTH = 500;
@@ -63,13 +63,30 @@ export async function POST(request: Request) {
         )
       : [];
 
-    const reply = await chatComplete([
-      { role: "system", content: `${SYSTEM_PROMPT}\n\nContext about Dev Patel:\n${contextBlock}` },
+    const completionMessages = [
+      { role: "system" as const, content: `${SYSTEM_PROMPT}\n\nContext about Dev Patel:\n${contextBlock}` },
       ...priorMessages,
-      { role: "user", content: message },
-    ]);
+      { role: "user" as const, content: message },
+    ];
 
-    return NextResponse.json({ reply });
+    const stream = new ReadableStream({
+      async start(controller) {
+        const encoder = new TextEncoder();
+        try {
+          for await (const delta of chatCompleteStream(completionMessages)) {
+            controller.enqueue(encoder.encode(delta));
+          }
+        } catch (err) {
+          console.error("Chat stream error:", err);
+        } finally {
+          controller.close();
+        }
+      },
+    });
+
+    return new Response(stream, {
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
+    });
   } catch (err) {
     console.error("Chat route error:", err);
     return NextResponse.json({ error: "Failed to get a response." }, { status: 500 });

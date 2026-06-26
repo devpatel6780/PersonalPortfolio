@@ -121,15 +121,46 @@ export function ChatWidget() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text, history: nextMessages.slice(-6) }),
       });
-      const data = await res.json();
 
       if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
         setError(data.error ?? "Something went wrong.");
+        setLoading(false);
         return;
       }
 
-      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
-      speak(data.reply);
+      if (!res.body) {
+        setError("Couldn't reach the assistant — try again in a moment.");
+        setLoading(false);
+        return;
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let fullText = "";
+      let started = false;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        if (!chunk) continue;
+
+        if (!started) {
+          started = true;
+          setLoading(false);
+          setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+        }
+
+        fullText += chunk;
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[updated.length - 1] = { role: "assistant", content: fullText };
+          return updated;
+        });
+      }
+
+      if (fullText) speak(fullText);
     } catch {
       setError("Couldn't reach the assistant — try again in a moment.");
     } finally {

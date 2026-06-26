@@ -43,6 +43,22 @@ export async function chatComplete(messages: { role: "system" | "user" | "assist
   return res.choices[0]?.message?.content ?? "";
 }
 
+export async function* chatCompleteStream(
+  messages: { role: "system" | "user" | "assistant"; content: string }[]
+): AsyncGenerator<string> {
+  const stream = await getClient().chat.completions.create({
+    model: CHAT_MODEL,
+    messages,
+    temperature: 0.4,
+    max_tokens: 350,
+    stream: true,
+  });
+  for await (const chunk of stream) {
+    const delta = chunk.choices[0]?.delta?.content;
+    if (delta) yield delta;
+  }
+}
+
 export function cosineSimilarity(a: number[], b: number[]): number {
   let dot = 0;
   let normA = 0;
