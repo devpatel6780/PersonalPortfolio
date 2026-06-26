@@ -2,7 +2,7 @@
 
 A portfolio site with a twist: instead of just describing my work, it **answers questions about it**. A RAG-powered chat assistant lives on the homepage, grounded in my actual resume and project case studies — ask it anything about my background and it retrieves real facts before answering, rather than guessing.
 
-**Live site:** [personal-portfolio-iota-self-92.vercel.app](https://personal-portfolio-iota-self-92.vercel.app)
+**Live site:** [devpatelassistant.vercel.app](https://devpatelassistant.vercel.app/)
 **Repo:** [github.com/devpatel6780/PersonalPortfolio](https://github.com/devpatel6780/PersonalPortfolio)
 
 ---
