@@ -18,7 +18,7 @@ export function AboutSection() {
 
   return (
     <section id="about" className="relative py-32 px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#1a0a2f] to-[#0a0a0f]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f9f7fd] to-white" />
 
       <div className="relative z-10 max-w-7xl mx-auto" ref={ref}>
         <motion.div
@@ -50,18 +50,18 @@ export function AboutSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div
-              className="relative p-8 rounded-3xl backdrop-blur-xl border border-white/10"
-              style={{ background: "rgba(255, 255, 255, 0.05)" }}
+              className="relative p-8 rounded-3xl backdrop-blur-xl border border-black/10 shadow-[0_10px_40px_rgba(0,0,0,0.06)]"
+              style={{ background: "rgba(255, 255, 255, 0.7)" }}
             >
               <h3 className="mb-6" style={{ fontSize: "2rem", fontWeight: 700, color: "#00d4ff" }}>
                 AI Engineer
               </h3>
-              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+              <p className="text-gray-600 text-lg leading-relaxed mb-6">
                 I build AI systems that hold up under real workloads — retrieval
                 pipelines, agentic loops, and inference infrastructure where
                 correctness is the only metric that matters.
               </p>
-              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+              <p className="text-gray-600 text-lg leading-relaxed mb-6">
                 I tend to build local-first with Ollama and FAISS, then graduate
                 to cloud infra when the use case demands it. My focus is on
                 systems that self-correct instead of silently failing.
@@ -95,14 +95,14 @@ export function AboutSection() {
             {skills.map((skill, index) => (
               <div key={skill.name}>
                 <div className="flex justify-between mb-2">
-                  <span className="text-white" style={{ fontWeight: 600, fontSize: "1.125rem" }}>
+                  <span className="text-gray-900" style={{ fontWeight: 600, fontSize: "1.125rem" }}>
                     {skill.name}
                   </span>
                   <span className="text-[#00d4ff]" style={{ fontWeight: 600 }}>
                     {skill.level}%
                   </span>
                 </div>
-                <div className="h-3 bg-white/5 rounded-full overflow-hidden backdrop-blur-sm border border-white/10">
+                <div className="h-3 bg-black/[0.04] rounded-full overflow-hidden backdrop-blur-sm border border-black/10">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={isInView ? { width: `${skill.level}%` } : {}}

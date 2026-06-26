@@ -52,7 +52,7 @@ export function Experience() {
 
   return (
     <section id="experience" className="relative py-32 px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#0f0a1f] to-[#0a0a0f]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f7f7fc] to-white" />
 
       <div className="relative z-10 max-w-5xl mx-auto" ref={ref}>
         <motion.div
@@ -75,7 +75,7 @@ export function Experience() {
             Experience &amp; Achievements
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-[#00d4ff] to-[#a855f7] mx-auto mb-6" />
-          <p className="text-gray-300 text-xl max-w-3xl mx-auto">
+          <p className="text-gray-600 text-xl max-w-3xl mx-auto">
             A track record of shipping AI systems that hold up in production
           </p>
         </motion.div>
@@ -111,24 +111,24 @@ export function Experience() {
                   <div className={`ml-24 md:ml-0 md:w-5/12 ${isLeft ? "md:pr-16" : "md:pl-16"}`}>
                     <motion.div
                       whileHover={{ scale: 1.05, y: -5 }}
-                      className="p-6 rounded-2xl backdrop-blur-xl border border-white/10"
-                      style={{ background: "rgba(255, 255, 255, 0.05)" }}
+                      className="p-6 rounded-2xl backdrop-blur-xl border border-black/10 shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+                      style={{ background: "rgba(255, 255, 255, 0.75)" }}
                     >
                       <div className="text-[#00d4ff] mb-2" style={{ fontWeight: 600 }}>
                         {item.year}
                       </div>
-                      <h3 className="text-white mb-1" style={{ fontSize: "1.25rem", fontWeight: 700 }}>
+                      <h3 className="text-gray-900 mb-1" style={{ fontSize: "1.25rem", fontWeight: 700 }}>
                         {item.title}
                       </h3>
                       <div className="text-[#a855f7] mb-4" style={{ fontWeight: 600 }}>
                         {item.company}
                       </div>
-                      <p className="text-gray-400 mb-4">{item.description}</p>
+                      <p className="text-gray-500 mb-4">{item.description}</p>
                       <ul className="space-y-2">
                         {item.achievements.map((achievement) => (
                           <li key={achievement} className="flex items-start gap-2">
                             <span className="text-[#00d4ff] mt-1">▸</span>
-                            <span className="text-gray-300 text-sm">{achievement}</span>
+                            <span className="text-gray-600 text-sm">{achievement}</span>
                           </li>
                         ))}
                       </ul>

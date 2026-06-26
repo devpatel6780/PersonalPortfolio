@@ -2,20 +2,20 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { LiveMetricsPanel } from "./LiveMetricsPanel";
+import { ChatTeaserPanel } from "./ChatTeaserPanel";
 
 export function Hero() {
   return (
     <section
       id="home"
-      className="relative w-full min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-[#0a0a0f] via-[#0f0a1f] to-[#0a0a0f] py-32"
+      className="relative w-full min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-white via-[#f7f7fc] to-white py-32"
     >
       {/* Subtle ambient glow behind the diagram */}
       <div
         aria-hidden
         className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
         style={{
-          background: "radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(0,212,255,0.14) 0%, transparent 70%)",
           filter: "blur(40px)",
         }}
       />
@@ -33,7 +33,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="text-gray-400 mb-3"
+              className="text-gray-500 mb-3"
               style={{ fontSize: "1.1rem", fontWeight: 500 }}
             >
               Hi, I&apos;m Dev Patel
@@ -59,7 +59,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               style={{ fontSize: "clamp(1.35rem, 3vw, 2.25rem)", fontWeight: 700, lineHeight: 1.3 }}
-              className="text-white mb-4"
+              className="text-gray-900 mb-4"
             >
               Building AI Systems That Think
             </motion.h2>
@@ -68,7 +68,7 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg md:text-xl text-gray-300 mb-12 max-w-xl mx-auto lg:mx-0"
+              className="text-lg md:text-xl text-gray-600 mb-12 max-w-xl mx-auto lg:mx-0"
             >
               I design retrieval pipelines, agent loops, and inference infrastructure with LangGraph, FAISS &amp; Ollama
             </motion.p>
@@ -84,7 +84,7 @@ export function Hero() {
                 className="group relative px-8 py-4 bg-gradient-to-r from-[#00d4ff] to-[#a855f7] rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(0,212,255,0.6)]"
               >
                 <span
-                  className="relative z-10 flex items-center gap-2"
+                  className="relative z-10 flex items-center gap-2 text-white"
                   style={{ fontSize: "1.125rem", fontWeight: 600 }}
                 >
                   Hire Me <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -109,7 +109,7 @@ export function Hero() {
             transition={{ duration: 0.9, delay: 0.3 }}
             className="hidden lg:block"
           >
-            <LiveMetricsPanel />
+            <ChatTeaserPanel />
           </motion.div>
         </div>
       </div>

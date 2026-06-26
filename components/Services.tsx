@@ -55,7 +55,7 @@ export function Services() {
 
   return (
     <section id="services" className="relative py-32 px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#0f0a1f] to-[#0a0a0f]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f7f7fc] to-white" />
 
       <div className="relative z-10 max-w-7xl mx-auto" ref={ref}>
         <motion.div
@@ -78,7 +78,7 @@ export function Services() {
             Services
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-[#00d4ff] to-[#a855f7] mx-auto mb-6" />
-          <p className="text-gray-300 text-xl max-w-3xl mx-auto">
+          <p className="text-gray-600 text-xl max-w-3xl mx-auto">
             End-to-end AI systems work — from retrieval design to production deployment
           </p>
         </motion.div>
@@ -93,8 +93,8 @@ export function Services() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ y: -10, scale: 1.02 }}
-                className="group relative p-8 rounded-3xl backdrop-blur-xl border border-white/10 transition-all cursor-pointer"
-                style={{ background: "rgba(255, 255, 255, 0.05)" }}
+                className="group relative p-8 rounded-3xl backdrop-blur-xl border border-black/10 transition-all cursor-pointer shadow-[0_10px_40px_rgba(0,0,0,0.06)]"
+                style={{ background: "rgba(255, 255, 255, 0.7)" }}
               >
                 <div
                   className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
@@ -115,13 +115,13 @@ export function Services() {
                   </div>
 
                   <h3
-                    className="mb-4 text-white group-hover:text-[#00d4ff] transition-colors"
+                    className="mb-4 text-gray-900 group-hover:text-[#00d4ff] transition-colors"
                     style={{ fontSize: "1.5rem", fontWeight: 700 }}
                   >
                     {service.title}
                   </h3>
 
-                  <p className="text-gray-400 leading-relaxed">{service.description}</p>
+                  <p className="text-gray-500 leading-relaxed">{service.description}</p>
                 </div>
               </motion.div>
             );

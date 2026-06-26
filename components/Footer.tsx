@@ -8,7 +8,7 @@ export function Footer() {
 
   return (
     <footer className="relative py-12 px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] to-[#0f0a1f]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-white to-[#f7f7fc]" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <motion.button
@@ -33,7 +33,7 @@ export function Footer() {
             >
               Dev Patel
             </h3>
-            <p className="text-gray-400 mt-2">Building AI Systems That Think</p>
+            <p className="text-gray-500 mt-2">Building AI Systems That Think</p>
           </div>
 
           <div className="flex flex-wrap justify-center gap-6">
@@ -49,16 +49,16 @@ export function Footer() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-gray-400 hover:text-[#00d4ff] transition-colors"
+                className="text-gray-500 hover:text-[#00d4ff] transition-colors"
               >
                 {link.name}
               </a>
             ))}
           </div>
 
-          <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          <div className="h-px bg-gradient-to-r from-transparent via-black/10 to-transparent" />
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-2 text-gray-400 text-sm">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-2 text-gray-500 text-sm">
             <p>© {new Date().getFullYear()} Dev Patel. All rights reserved.</p>
             <span className="hidden md:inline">•</span>
             <p>Built using Next.js &amp; Framer Motion</p>
