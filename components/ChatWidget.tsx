@@ -54,6 +54,7 @@ export function ChatWidget() {
   const [voiceEnabled, setVoiceEnabled] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
+  const lastInputWasVoiceRef = useRef(false);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -67,11 +68,12 @@ export function ChatWidget() {
     };
   }, []);
 
-  const speak = (text: string) => {
+  const speak = (text: string, onEnd?: () => void) => {
     if (!voiceEnabled || typeof window === "undefined" || !window.speechSynthesis) return;
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 1.02;
+    if (onEnd) utterance.onend = onEnd;
     window.speechSynthesis.speak(utterance);
   };
 
@@ -97,7 +99,7 @@ export function ChatWidget() {
     recognition.continuous = false;
     recognition.onresult = (event) => {
       const transcript = event.results[0]?.[0]?.transcript;
-      if (transcript) sendMessage(transcript);
+      if (transcript) sendMessage(transcript, true);
     };
     recognition.onerror = () => setIsListening(false);
     recognition.onend = () => setIsListening(false);
@@ -107,8 +109,9 @@ export function ChatWidget() {
     setIsListening(true);
   };
 
-  const sendMessage = async (text: string) => {
+  const sendMessage = async (text: string, viaVoice = false) => {
     if (!text.trim() || loading) return;
+    lastInputWasVoiceRef.current = viaVoice;
     setError(null);
     const nextMessages: ChatMessage[] = [...messages, { role: "user", content: text }];
     setMessages(nextMessages);
@@ -160,7 +163,17 @@ export function ChatWidget() {
         });
       }
 
-      if (fullText) speak(fullText);
+      if (fullText) {
+        const withFollowUp = `${fullText}\n\nDo you have any further questions?`;
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[updated.length - 1] = { role: "assistant", content: withFollowUp };
+          return updated;
+        });
+        speak(withFollowUp, () => {
+          if (lastInputWasVoiceRef.current) toggleListening();
+        });
+      }
     } catch {
       setError("Couldn't reach the assistant — try again in a moment.");
     } finally {
@@ -273,6 +286,19 @@ export function ChatWidget() {
                 </div>
               )}
             </div>
+
+            {isListening && (
+              <div className="flex justify-center pb-2">
+                <button
+                  type="button"
+                  onClick={toggleListening}
+                  className="flex items-center gap-2 text-xs px-3 py-1.5 rounded-full border border-red-400/40 text-red-300 hover:bg-red-400/10 transition-all"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                  Done talking
+                </button>
+              </div>
+            )}
 
             {/* Input */}
             <form
