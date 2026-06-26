@@ -2,11 +2,33 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Loader2, Sparkles } from "lucide-react";
+import { MessageCircle, X, Send, Loader2, Sparkles, Mic, MicOff, Volume2, VolumeX } from "lucide-react";
 
 interface ChatMessage {
   role: "user" | "assistant";
   content: string;
+}
+
+interface SpeechRecognitionResultLike {
+  results: { [index: number]: { [index: number]: { transcript: string } } };
+}
+
+interface SpeechRecognitionLike {
+  lang: string;
+  interimResults: boolean;
+  continuous: boolean;
+  onresult: ((event: SpeechRecognitionResultLike) => void) | null;
+  onerror: (() => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+}
+
+function getSpeechRecognitionCtor(): (new () => SpeechRecognitionLike) | undefined {
+  return (
+    (window as unknown as { SpeechRecognition?: new () => SpeechRecognitionLike }).SpeechRecognition ??
+    (window as unknown as { webkitSpeechRecognition?: new () => SpeechRecognitionLike }).webkitSpeechRecognition
+  );
 }
 
 const SUGGESTIONS = [
@@ -27,11 +49,63 @@ export function ChatWidget() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isListening, setIsListening] = useState(false);
+  const [voiceSupported, setVoiceSupported] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, loading]);
+
+  useEffect(() => {
+    setVoiceSupported(Boolean(getSpeechRecognitionCtor() && "speechSynthesis" in window));
+    return () => {
+      recognitionRef.current?.stop();
+      window.speechSynthesis?.cancel();
+    };
+  }, []);
+
+  const speak = (text: string) => {
+    if (!voiceEnabled || typeof window === "undefined" || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1.02;
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const toggleVoiceOutput = () => {
+    setVoiceEnabled((enabled) => {
+      if (enabled) window.speechSynthesis?.cancel();
+      return !enabled;
+    });
+  };
+
+  const toggleListening = () => {
+    if (isListening) {
+      recognitionRef.current?.stop();
+      return;
+    }
+
+    const SpeechRecognitionCtor = getSpeechRecognitionCtor();
+    if (!SpeechRecognitionCtor) return;
+
+    const recognition = new SpeechRecognitionCtor();
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.continuous = false;
+    recognition.onresult = (event) => {
+      const transcript = event.results[0]?.[0]?.transcript;
+      if (transcript) sendMessage(transcript);
+    };
+    recognition.onerror = () => setIsListening(false);
+    recognition.onend = () => setIsListening(false);
+
+    recognitionRef.current = recognition;
+    recognition.start();
+    setIsListening(true);
+  };
 
   const sendMessage = async (text: string) => {
     if (!text.trim() || loading) return;
@@ -55,6 +129,7 @@ export function ChatWidget() {
       }
 
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+      speak(data.reply);
     } catch {
       setError("Couldn't reach the assistant — try again in a moment.");
     } finally {
@@ -100,12 +175,23 @@ export function ChatWidget() {
               >
                 <Sparkles className="w-4.5 h-4.5 text-white" />
               </div>
-              <div>
+              <div className="flex-1">
                 <p className="text-white text-sm" style={{ fontWeight: 700 }}>
                   Ask about Dev
                 </p>
                 <p className="text-[11px] text-gray-400">RAG-powered · trained on his resume</p>
               </div>
+              {voiceSupported && (
+                <button
+                  type="button"
+                  onClick={toggleVoiceOutput}
+                  className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all flex-shrink-0"
+                  aria-label={voiceEnabled ? "Mute voice replies" : "Unmute voice replies"}
+                  title={voiceEnabled ? "Voice replies on" : "Voice replies off"}
+                >
+                  {voiceEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                </button>
+              )}
             </div>
 
             {/* Messages */}
@@ -168,9 +254,30 @@ export function ChatWidget() {
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask a question..."
-                className="flex-1 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/30 transition-all"
+                placeholder={isListening ? "Listening..." : "Ask a question..."}
+                disabled={isListening}
+                className="flex-1 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/30 transition-all disabled:opacity-60"
               />
+              {voiceSupported && (
+                <button
+                  type="button"
+                  onClick={toggleListening}
+                  disabled={loading}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 disabled:opacity-40 transition-all border"
+                  style={
+                    isListening
+                      ? { background: "rgba(239,68,68,0.15)", borderColor: "#ef4444" }
+                      : { background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)" }
+                  }
+                  aria-label={isListening ? "Stop listening" : "Ask with your voice"}
+                >
+                  {isListening ? (
+                    <MicOff className="w-4 h-4 text-red-400 animate-pulse" />
+                  ) : (
+                    <Mic className="w-4 h-4 text-gray-300" />
+                  )}
+                </button>
+              )}
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
