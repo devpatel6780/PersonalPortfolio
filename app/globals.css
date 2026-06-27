@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
 
 @theme {
   --color-bg: #ffffff;
@@ -11,18 +12,47 @@
   --font-mono: var(--font-geist-mono), monospace;
 }
 
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-bg-strong: rgba(255, 255, 255, 0.97);
+  --glass-tint-soft: rgba(10, 10, 15, 0.02);
+  --glass-tint: rgba(10, 10, 15, 0.03);
+  --glass-tint-strong: rgba(10, 10, 15, 0.04);
+  --bubble-bg: rgba(10, 10, 15, 0.04);
+  --bubble-fg: #1f2937;
+  --muted-fg: #6b7280;
+  --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  --panel-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.dark {
+  --color-bg: #0a0a0f;
+  --color-fg: #ffffff;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg-strong: rgba(10, 10, 15, 0.95);
+  --glass-tint-soft: rgba(255, 255, 255, 0.03);
+  --glass-tint: rgba(255, 255, 255, 0.05);
+  --glass-tint-strong: rgba(255, 255, 255, 0.06);
+  --bubble-bg: rgba(255, 255, 255, 0.06);
+  --bubble-fg: #e5e7eb;
+  --muted-fg: #9ca3af;
+  --card-shadow: none;
+  --panel-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #ffffff;
-  color: #0a0a0f;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   cursor: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a, button {

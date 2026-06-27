@@ -54,7 +54,7 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative py-32 px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f7f7fc] to-white" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f7f7fc] to-white dark:from-[#0a0a0f] dark:via-[#0f0a1f] dark:to-[#0a0a0f]" />
 
       <div className="relative z-10 max-w-7xl mx-auto" ref={ref}>
         <motion.div
@@ -77,7 +77,7 @@ export function Contact() {
             Let&apos;s Work Together
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-[#00d4ff] to-[#a855f7] mx-auto mb-6" />
-          <p className="text-gray-600 text-xl max-w-3xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-300 text-xl max-w-3xl mx-auto">
             Have an AI system that needs building, fixing, or scaling? Let&apos;s talk.
           </p>
         </motion.div>
@@ -90,10 +90,10 @@ export function Contact() {
             className="space-y-8"
           >
             <div
-              className="p-8 rounded-3xl backdrop-blur-xl border border-black/10 shadow-[0_10px_40px_rgba(0,0,0,0.06)]"
-              style={{ background: "rgba(255, 255, 255, 0.7)" }}
+              className="p-8 rounded-3xl backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.06)] dark:shadow-none"
+              style={{ background: "var(--glass-bg)" }}
             >
-              <h3 className="mb-6 text-gray-900" style={{ fontSize: "1.75rem", fontWeight: 700 }}>
+              <h3 className="mb-6 text-gray-900 dark:text-white" style={{ fontSize: "1.75rem", fontWeight: 700 }}>
                 Get In Touch
               </h3>
 
@@ -106,8 +106,8 @@ export function Contact() {
                     <Mail className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <div className="text-gray-500 mb-1">Email</div>
-                    <div className="text-gray-900" style={{ fontWeight: 600 }}>
+                    <div className="text-gray-500 dark:text-gray-400 mb-1">Email</div>
+                    <div className="text-gray-900 dark:text-white" style={{ fontWeight: 600 }}>
                       devp70431@gmail.com
                     </div>
                   </div>
@@ -121,8 +121,8 @@ export function Contact() {
                     <MapPin className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <div className="text-gray-500 mb-1">Availability</div>
-                    <div className="text-gray-900" style={{ fontWeight: 600 }}>
+                    <div className="text-gray-500 dark:text-gray-400 mb-1">Availability</div>
+                    <div className="text-gray-900 dark:text-white" style={{ fontWeight: 600 }}>
                       Open to remote work
                     </div>
                   </div>
@@ -130,13 +130,13 @@ export function Contact() {
               </div>
 
               <div className="mt-8">
-                <div className="text-gray-500 mb-4">Find me elsewhere</div>
+                <div className="text-gray-500 dark:text-gray-400 mb-4">Find me elsewhere</div>
                 <div className="flex gap-4">
                   <a
                     href="https://www.linkedin.com/in/devrakeshpatel/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl flex items-center justify-center border border-black/15 hover:border-[#00d4ff] hover:bg-[#00d4ff]/10 transition-all"
+                    className="w-12 h-12 rounded-xl flex items-center justify-center border border-black/15 dark:border-white/20 hover:border-[#00d4ff] hover:bg-[#00d4ff]/10 transition-all"
                   >
                     <LinkedinIcon className="w-6 h-6 text-[#00d4ff]" />
                   </a>
@@ -144,7 +144,7 @@ export function Contact() {
                     href="https://github.com/devpatel6780"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl flex items-center justify-center border border-black/15 hover:border-[#00d4ff] hover:bg-[#00d4ff]/10 transition-all"
+                    className="w-12 h-12 rounded-xl flex items-center justify-center border border-black/15 dark:border-white/20 hover:border-[#00d4ff] hover:bg-[#00d4ff]/10 transition-all"
                   >
                     <GithubIcon className="w-6 h-6 text-[#00d4ff]" />
                   </a>
@@ -160,12 +160,12 @@ export function Contact() {
           >
             <form
               onSubmit={handleSubmit}
-              className="p-8 rounded-3xl backdrop-blur-xl border border-black/10 shadow-[0_10px_40px_rgba(0,0,0,0.06)]"
-              style={{ background: "rgba(255, 255, 255, 0.7)" }}
+              className="p-8 rounded-3xl backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.06)] dark:shadow-none"
+              style={{ background: "var(--glass-bg)" }}
             >
               <div className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-gray-900 mb-2">
+                  <label htmlFor="name" className="block text-gray-900 dark:text-white mb-2">
                     Name
                   </label>
                   <input
@@ -175,13 +175,13 @@ export function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-6 py-4 bg-black/[0.03] border border-black/10 rounded-2xl text-gray-900 placeholder-gray-400 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/50 transition-all"
+                    className="w-full px-6 py-4 bg-black/[0.03] dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/50 transition-all"
                     placeholder="Your name"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-gray-900 mb-2">
+                  <label htmlFor="email" className="block text-gray-900 dark:text-white mb-2">
                     Email
                   </label>
                   <input
@@ -191,13 +191,13 @@ export function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-6 py-4 bg-black/[0.03] border border-black/10 rounded-2xl text-gray-900 placeholder-gray-400 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/50 transition-all"
+                    className="w-full px-6 py-4 bg-black/[0.03] dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/50 transition-all"
                     placeholder="your.email@example.com"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-gray-900 mb-2">
+                  <label htmlFor="message" className="block text-gray-900 dark:text-white mb-2">
                     Message
                   </label>
                   <textarea
@@ -207,7 +207,7 @@ export function Contact() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-6 py-4 bg-black/[0.03] border border-black/10 rounded-2xl text-gray-900 placeholder-gray-400 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/50 transition-all resize-none"
+                    className="w-full px-6 py-4 bg-black/[0.03] dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/50 transition-all resize-none"
                     placeholder="Tell me about your project..."
                   />
                 </div>

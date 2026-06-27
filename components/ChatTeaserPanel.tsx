@@ -10,15 +10,15 @@ export function ChatTeaserPanel() {
 
   return (
     <div
-      className="rounded-3xl border border-black/10 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.08)]"
-      style={{ background: "rgba(255,255,255,0.8)" }}
+      className="rounded-3xl border border-black/10 dark:border-white/10 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.08)] dark:shadow-none"
+      style={{ background: "var(--glass-bg)" }}
     >
       <div className="flex items-center gap-2 mb-5">
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#4ade80] opacity-75" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ade80]" />
         </span>
-        <span className="text-xs text-gray-500" style={{ letterSpacing: "0.05em" }}>
+        <span className="text-xs text-gray-500 dark:text-gray-400" style={{ letterSpacing: "0.05em" }}>
           ONLINE — TALK TO MY AI ASSISTANT
         </span>
       </div>
@@ -39,8 +39,8 @@ export function ChatTeaserPanel() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mr-auto max-w-[85%] rounded-2xl px-4 py-2.5 text-sm text-gray-700"
-          style={{ background: "rgba(10,10,15,0.04)" }}
+          className="mr-auto max-w-[85%] rounded-2xl px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200"
+          style={{ background: "var(--bubble-bg)" }}
         >
           My self-correcting RAG pipeline — it grades its own retrievals and
           re-queries when confidence drops, cutting hallucinations 63%...

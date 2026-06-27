@@ -211,13 +211,13 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-24 right-6 z-[60] w-[min(380px,calc(100vw-3rem))] h-[min(520px,calc(100vh-10rem))] rounded-3xl border border-black/10 backdrop-blur-xl flex flex-col overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
-            style={{ background: "rgba(255,255,255,0.97)" }}
+            className="fixed bottom-24 right-6 z-[60] w-[min(380px,calc(100vw-3rem))] h-[min(520px,calc(100vh-10rem))] rounded-3xl border border-black/10 dark:border-white/10 backdrop-blur-xl flex flex-col overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
+            style={{ background: "var(--glass-bg-strong)" }}
           >
             {/* Header */}
             <div
-              className="flex items-center gap-3 px-5 py-4 border-b border-black/10"
-              style={{ background: "rgba(10,10,15,0.02)" }}
+              className="flex items-center gap-3 px-5 py-4 border-b border-black/10 dark:border-white/10"
+              style={{ background: "var(--glass-tint-soft)" }}
             >
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -226,16 +226,16 @@ export function ChatWidget() {
                 <Sparkles className="w-4.5 h-4.5 text-white" />
               </div>
               <div className="flex-1">
-                <p className="text-gray-900 text-sm" style={{ fontWeight: 700 }}>
+                <p className="text-gray-900 dark:text-white text-sm" style={{ fontWeight: 700 }}>
                   Ask about Dev
                 </p>
-                <p className="text-[11px] text-gray-500">RAG-powered · trained on his resume</p>
+                <p className="text-[11px] text-gray-500 dark:text-gray-400">RAG-powered · trained on his resume</p>
               </div>
               {voiceSupported && (
                 <button
                   type="button"
                   onClick={toggleVoiceOutput}
-                  className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-black/5 transition-all flex-shrink-0"
+                  className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all flex-shrink-0"
                   aria-label={voiceEnabled ? "Mute voice replies" : "Unmute voice replies"}
                   title={voiceEnabled ? "Voice replies on" : "Voice replies off"}
                 >
@@ -255,7 +255,7 @@ export function ChatWidget() {
                   style={
                     m.role === "user"
                       ? { background: "linear-gradient(135deg, #00d4ff, #a855f7)", color: "white" }
-                      : { background: "rgba(10,10,15,0.04)", color: "#1f2937" }
+                      : { background: "var(--bubble-bg)", color: "var(--bubble-fg)" }
                   }
                 >
                   {m.content}
@@ -265,7 +265,7 @@ export function ChatWidget() {
               {loading && (
                 <div
                   className="mr-auto max-w-[85%] rounded-2xl px-4 py-2.5 text-sm flex items-center gap-2"
-                  style={{ background: "rgba(10,10,15,0.04)", color: "#6b7280" }}
+                  style={{ background: "var(--bubble-bg)", color: "var(--muted-fg)" }}
                 >
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
                   Thinking...
@@ -284,7 +284,7 @@ export function ChatWidget() {
                     <button
                       key={s}
                       onClick={() => sendMessage(s)}
-                      className="text-left text-xs px-3 py-2 rounded-xl border border-black/10 text-gray-600 hover:border-[#00d4ff]/40 hover:bg-[#00d4ff]/5 transition-all"
+                      className="text-left text-xs px-3 py-2 rounded-xl border border-black/10 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-[#00d4ff]/40 hover:bg-[#00d4ff]/5 transition-all"
                     >
                       {s}
                     </button>
@@ -312,32 +312,31 @@ export function ChatWidget() {
                 e.preventDefault();
                 sendMessage(input);
               }}
-              className="flex items-center gap-2 p-3 border-t border-black/10"
+              className="flex items-center gap-2 p-3 border-t border-black/10 dark:border-white/10"
             >
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={isListening ? "Listening..." : "Ask a question..."}
                 disabled={isListening}
-                className="flex-1 px-4 py-2.5 rounded-xl bg-black/[0.03] border border-black/10 text-gray-900 text-sm placeholder-gray-400 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/30 transition-all disabled:opacity-60"
+                className="flex-1 px-4 py-2.5 rounded-xl bg-black/[0.03] dark:bg-white/5 border border-black/10 dark:border-white/10 text-gray-900 dark:text-white text-sm placeholder-gray-400 dark:placeholder-gray-500 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/30 transition-all disabled:opacity-60"
               />
               {voiceSupported && (
                 <button
                   type="button"
                   onClick={toggleListening}
                   disabled={loading}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 disabled:opacity-40 transition-all border"
-                  style={
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 disabled:opacity-40 transition-all border ${
                     isListening
-                      ? { background: "rgba(239,68,68,0.15)", borderColor: "#ef4444" }
-                      : { background: "rgba(10,10,15,0.03)", borderColor: "rgba(10,10,15,0.1)" }
-                  }
+                      ? "bg-red-500/15 border-red-500"
+                      : "bg-black/[0.03] dark:bg-white/5 border-black/10 dark:border-white/10"
+                  }`}
                   aria-label={isListening ? "Stop listening" : "Ask with your voice"}
                 >
                   {isListening ? (
                     <MicOff className="w-4 h-4 text-red-400 animate-pulse" />
                   ) : (
-                    <Mic className="w-4 h-4 text-gray-600" />
+                    <Mic className="w-4 h-4 text-gray-600 dark:text-gray-300" />
                   )}
                 </button>
               )}

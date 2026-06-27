@@ -8,7 +8,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative w-full min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-white via-[#f7f7fc] to-white py-32"
+      className="relative w-full min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-white via-[#f7f7fc] to-white dark:from-[#0a0a0f] dark:via-[#0f0a1f] dark:to-[#0a0a0f] py-32"
     >
       {/* Subtle ambient glow behind the diagram */}
       <div
@@ -29,16 +29,6 @@ export function Hero() {
             transition={{ duration: 0.8 }}
             className="text-center lg:text-left"
           >
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="text-gray-500 mb-3"
-              style={{ fontSize: "1.1rem", fontWeight: 500 }}
-            >
-              Hi, I&apos;m Dev Patel
-            </motion.p>
-
             <motion.h1
               className="mb-6"
               style={{
@@ -59,7 +49,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               style={{ fontSize: "clamp(1.35rem, 3vw, 2.25rem)", fontWeight: 700, lineHeight: 1.3 }}
-              className="text-gray-900 mb-4"
+              className="text-gray-900 dark:text-white mb-4"
             >
               Building AI Systems That Think
             </motion.h2>
@@ -68,7 +58,7 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg md:text-xl text-gray-600 mb-12 max-w-xl mx-auto lg:mx-0"
+              className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-xl mx-auto lg:mx-0"
             >
               I design retrieval pipelines, agent loops, and inference infrastructure with LangGraph, FAISS &amp; Ollama
             </motion.p>

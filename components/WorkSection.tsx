@@ -11,7 +11,7 @@ export function WorkSection() {
 
   return (
     <section id="portfolio" className="relative py-32 px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f9f7fd] to-white" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f9f7fd] to-white dark:from-[#0a0a0f] dark:via-[#1a0a2f] dark:to-[#0a0a0f]" />
 
       <div className="relative z-10 max-w-7xl mx-auto" ref={ref}>
         <motion.div
@@ -34,7 +34,7 @@ export function WorkSection() {
             Portfolio &amp; Case Studies
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-[#00d4ff] to-[#a855f7] mx-auto mb-6" />
-          <p className="text-gray-600 text-xl max-w-3xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-300 text-xl max-w-3xl mx-auto">
             Real systems, real metrics — AI engineering that holds up in production
           </p>
         </motion.div>
@@ -47,9 +47,9 @@ export function WorkSection() {
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ scale: 1.02, rotateY: 2 }}
-              className="group relative p-8 rounded-3xl backdrop-blur-xl border border-black/10 overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.06)]"
+              className="group relative p-8 rounded-3xl backdrop-blur-xl border border-black/10 dark:border-white/10 overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.06)] dark:shadow-none"
               style={{
-                background: "rgba(255, 255, 255, 0.7)",
+                background: "var(--glass-bg)",
                 transformStyle: "preserve-3d",
                 perspective: "1000px",
               }}
@@ -73,11 +73,11 @@ export function WorkSection() {
                   </span>
                 </div>
 
-                <h3 className="mb-4 text-gray-900" style={{ fontSize: "1.75rem", fontWeight: 700 }}>
+                <h3 className="mb-4 text-gray-900 dark:text-white" style={{ fontSize: "1.75rem", fontWeight: 700 }}>
                   {project.title}
                 </h3>
 
-                <p className="text-gray-500 mb-6 leading-relaxed">{project.description}</p>
+                <p className="text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">{project.description}</p>
 
                 <div className="grid grid-cols-3 gap-4">
                   {project.results.map((result, i) => {
@@ -86,7 +86,7 @@ export function WorkSection() {
                       <div
                         key={result.label}
                         className="text-center p-4 rounded-2xl"
-                        style={{ background: "rgba(10, 10, 15, 0.03)" }}
+                        style={{ background: "var(--glass-tint)" }}
                       >
                         <Icon className="w-5 h-5 mx-auto mb-2 text-[#00d4ff]" />
                         <div
@@ -102,7 +102,7 @@ export function WorkSection() {
                         >
                           {result.value}
                         </div>
-                        <div className="text-gray-500 text-xs">{result.label}</div>
+                        <div className="text-gray-500 dark:text-gray-400 text-xs">{result.label}</div>
                       </div>
                     );
                   })}
@@ -112,8 +112,8 @@ export function WorkSection() {
                   {project.stack.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 rounded-full text-xs border border-black/10 text-gray-600"
-                      style={{ background: "rgba(10,10,15,0.02)" }}
+                      className="px-3 py-1 rounded-full text-xs border border-black/10 dark:border-white/10 text-gray-600 dark:text-gray-300"
+                      style={{ background: "var(--glass-tint-soft)" }}
                     >
                       {tech}
                     </span>

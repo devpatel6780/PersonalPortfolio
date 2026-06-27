@@ -10,7 +10,7 @@ export function Education() {
 
   return (
     <section id="education" className="relative py-32 px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f9f7fd] to-white" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f9f7fd] to-white dark:from-[#0a0a0f] dark:via-[#1a0a2f] dark:to-[#0a0a0f]" />
 
       <div className="relative z-10 max-w-4xl mx-auto" ref={ref}>
         <motion.div
@@ -40,8 +40,8 @@ export function Education() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.15 }}
           whileHover={{ scale: 1.01 }}
-          className="flex flex-col sm:flex-row items-start gap-6 p-8 rounded-3xl backdrop-blur-xl border border-black/10 shadow-[0_10px_40px_rgba(0,0,0,0.06)]"
-          style={{ background: "rgba(255, 255, 255, 0.7)" }}
+          className="flex flex-col sm:flex-row items-start gap-6 p-8 rounded-3xl backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.06)] dark:shadow-none"
+          style={{ background: "var(--glass-bg)" }}
         >
           <div
             className="w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0"
@@ -55,7 +55,7 @@ export function Education() {
 
           <div className="flex-1">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
-              <h3 className="text-gray-900" style={{ fontSize: "1.5rem", fontWeight: 700 }}>
+              <h3 className="text-gray-900 dark:text-white" style={{ fontSize: "1.5rem", fontWeight: 700 }}>
                 Master of Science in Computer Science
               </h3>
               <span className="text-[#00d4ff]" style={{ fontWeight: 600 }}>

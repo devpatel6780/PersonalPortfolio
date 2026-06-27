@@ -79,7 +79,7 @@ export function TechStack() {
 
   return (
     <section id="tech-stack" className="relative py-32 px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f7f7fc] to-white" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f7f7fc] to-white dark:from-[#0a0a0f] dark:via-[#0f0a1f] dark:to-[#0a0a0f]" />
 
       <div className="relative z-10 max-w-7xl mx-auto" ref={ref}>
         <motion.div
@@ -102,7 +102,7 @@ export function TechStack() {
             Tech Stack
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-[#00d4ff] to-[#a855f7] mx-auto mb-6" />
-          <p className="text-gray-600 text-xl max-w-3xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-300 text-xl max-w-3xl mx-auto">
             Tools and platforms I use across the ML lifecycle — from data to deployment
           </p>
         </motion.div>
@@ -117,8 +117,8 @@ export function TechStack() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.06 }}
                 whileHover={{ y: -6 }}
-                className="p-6 rounded-2xl backdrop-blur-xl border border-black/10 transition-all shadow-[0_8px_30px_rgba(0,0,0,0.05)]"
-                style={{ background: "rgba(255, 255, 255, 0.7)" }}
+                className="p-6 rounded-2xl backdrop-blur-xl border border-black/10 dark:border-white/10 transition-all shadow-[0_8px_30px_rgba(0,0,0,0.05)] dark:shadow-none"
+                style={{ background: "var(--glass-bg)" }}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div
@@ -130,7 +130,7 @@ export function TechStack() {
                   >
                     <Icon className="w-5 h-5" style={{ color: category.color }} />
                   </div>
-                  <h3 className="text-gray-900" style={{ fontSize: "1.05rem", fontWeight: 700 }}>
+                  <h3 className="text-gray-900 dark:text-white" style={{ fontSize: "1.05rem", fontWeight: 700 }}>
                     {category.title}
                   </h3>
                 </div>
@@ -139,8 +139,8 @@ export function TechStack() {
                   {category.items.map((item) => (
                     <span
                       key={item}
-                      className="px-3 py-1 rounded-full text-xs text-gray-600 border border-black/10"
-                      style={{ background: "rgba(10,10,15,0.02)" }}
+                      className="px-3 py-1 rounded-full text-xs text-gray-600 dark:text-gray-300 border border-black/10 dark:border-white/10"
+                      style={{ background: "var(--glass-tint-soft)" }}
                     >
                       {item}
                     </span>

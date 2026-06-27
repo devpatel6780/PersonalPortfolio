@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -32,7 +33,7 @@ export function Nav() {
       transition={{ duration: 0.6 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/90 backdrop-blur-xl border-b border-black/10"
+          ? "bg-white/90 dark:bg-[#0a0a0f]/90 backdrop-blur-xl border-b border-black/10 dark:border-white/10"
           : "bg-transparent"
       }`}
     >
@@ -58,7 +59,7 @@ export function Nav() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-gray-600 hover:text-[#00d4ff] transition-colors relative group text-sm"
+                className="text-gray-600 dark:text-gray-300 hover:text-[#00d4ff] transition-colors relative group text-sm"
                 style={{ fontWeight: 500 }}
               >
                 {link.name}
@@ -72,14 +73,18 @@ export function Nav() {
             >
               Hire Me
             </a>
+            <ThemeToggle />
           </div>
 
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden text-gray-900"
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="flex items-center gap-2 lg:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-gray-900 dark:text-white"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {isMobileMenuOpen && (
@@ -95,7 +100,7 @@ export function Nav() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-gray-600 hover:text-[#00d4ff] transition-colors py-2"
+                  className="text-gray-600 dark:text-gray-300 hover:text-[#00d4ff] transition-colors py-2"
                   style={{ fontWeight: 500 }}
                 >
                   {link.name}
