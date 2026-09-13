@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 import { chatCompleteStream } from "@/lib/nvidia";
 import { retrieveContext } from "@/lib/retrieval";
 
+// The NVIDIA free-tier model streams slowly enough that a full reply can
+// take 20-30s — longer than Vercel's default serverless timeout, which was
+// killing the response mid-stream before the client ever saw a token.
+export const maxDuration = 60;
+
 const MAX_MESSAGE_LENGTH = 500;
 const MAX_HISTORY = 6;
 
