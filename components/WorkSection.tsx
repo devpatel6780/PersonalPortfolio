@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+import Link from "next/link";
 import { useRef } from "react";
 import { TrendingUp, Award, Users } from "lucide-react";
 import { projects } from "@/lib/projects";
@@ -47,13 +48,14 @@ export function WorkSection() {
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ scale: 1.02, rotateY: 2 }}
-              className="group relative p-8 rounded-3xl backdrop-blur-xl border border-black/10 dark:border-white/10 overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.06)] dark:shadow-none"
+              className="group relative rounded-3xl backdrop-blur-xl border border-black/10 dark:border-white/10 overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.06)] dark:shadow-none"
               style={{
                 background: "var(--glass-bg)",
                 transformStyle: "preserve-3d",
                 perspective: "1000px",
               }}
             >
+              <Link href={`/work/${project.slug}`} className="block p-8">
               <div
                 className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
               />
@@ -120,6 +122,7 @@ export function WorkSection() {
                   ))}
                 </div>
               </div>
+              </Link>
             </motion.div>
           ))}
         </div>

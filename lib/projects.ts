@@ -11,7 +11,7 @@ export interface Project {
   description: string;
   stack: string[];
   year: string;
-  status: "Production" | "Research" | "Open Source";
+  status: "Shipped" | "In Progress" | "Research" | "Open Source";
   gradient: string;
   results: ProjectResult[];
   detail: {
@@ -24,127 +24,194 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: "rag-pipeline",
+    slug: "careerpilot",
     index: "01",
-    category: "AI Systems",
-    title: "Self-Correcting RAG Pipeline",
+    category: "Multi-Agent Systems",
+    title: "CareerPilot — AI Career Assistant",
     description:
-      "An agentic retrieval system that grades its own outputs and re-queries when confidence falls below threshold — eliminating silent retrieval failures.",
-    stack: ["LangGraph", "FAISS", "Ollama", "Python", "FastAPI"],
-    year: "2025",
+      "An eval-first, multi-agent system that analyzes a resume, ingests real job postings, scores fit, tailors resume content, drafts cover letters, and tracks applications — architected as independent LangGraph subgraphs behind a FastAPI backend.",
+    stack: ["FastAPI", "LangGraph", "ChromaDB", "Next.js", "NVIDIA NIM", "SQLite"],
+    year: "2026",
+    status: "In Progress",
+    gradient: "from-[#a855f7] to-[#7c3aed]",
+    results: [
+      { label: "Match Target", value: "ρ > 0.6" },
+      { label: "Score Formula", value: "40% embed + 60% LLM" },
+      { label: "Agent Subgraphs", value: "5" },
+    ],
+    detail: {
+      problem:
+        "Job seekers can't tell how well their resume actually matches a role, and manually tailoring a resume and cover letter for every application doesn't scale — while most \"AI apply\" tools cross into scraping and ToS-risk territory to get there.",
+      approach:
+        "Built as independent LangGraph subgraphs — resume analysis, job ingestion, matching, tailoring, and cover letter generation — each with its own state schema, orchestrated behind a FastAPI backend and a Next.js frontend. Jobs are ingested from the Greenhouse and Lever public APIs (no scraping, no ToS risk). Fit is scored as 40% embedding similarity (ChromaDB, cosine) plus 60% LLM-judged fit across strengths, gaps, and missing skills. Resume tailoring runs through a two-step chain: rewrite bullets toward the job's terminology using only facts already in the resume, then a second \"truthfulness guard\" LLM call flags — never silently deletes — any claim it can't trace back to the original resume.",
+      outcome:
+        "Matching quality is measured against a hand-labeled golden set rather than eyeballed, targeting Spearman ρ > 0.6, with precision/recall on missing-skill detection and a confusion matrix. The truthfulness guard is backed by a regression test that feeds it a deliberately fabricated claim and confirms it gets caught. Phases 0-2 (foundation, resume analysis, job ingestion) are done and verified end-to-end; matching, tailoring, cover letters, and the tracking dashboard are built and locally tested, currently going through live verification.",
+      highlights: [
+        "Each agent is a self-contained LangGraph subgraph — no agent reaches into another's internals",
+        "Job ingestion via Greenhouse/Lever public APIs, deliberately avoiding LinkedIn/Indeed scraping",
+        "Truthfulness guard catches fabricated resume claims, backed by a dedicated regression test",
+        "Golden-set eval harness reports Spearman correlation and a missing-skill confusion matrix",
+        "SQLite schema designed so a future Postgres swap is just a connection-string change",
+      ],
+    },
+  },
+  {
+    slug: "rag-architecture",
+    index: "02",
+    category: "RAG / Retrieval",
+    title: "RAG-Architecture — RAG Built From Scratch",
+    description:
+      "A from-scratch Retrieval-Augmented Generation pipeline built to understand what each LangChain call actually does under the hood, extended with a real evaluation harness instead of eyeballed correctness.",
+    stack: ["LangChain", "ChromaDB", "Ollama", "sentence-transformers", "Streamlit"],
+    year: "2026",
     status: "Research",
     gradient: "from-[#00d4ff] to-[#0080ff]",
     results: [
-      { label: "Hallucination Drop", value: "63%" },
-      { label: "P95 Latency", value: "<4s" },
-      { label: "Correction Cycles", value: "≤3" },
+      { label: "Hit@5", value: "0.95" },
+      { label: "MRR", value: "0.83" },
+      { label: "Eval Set", value: "21 questions" },
     ],
     detail: {
       problem:
-        "Standard RAG pipelines fail silently: when the retriever surfaces irrelevant documents, the generator hallucinates rather than refusing. There's no feedback loop between evaluation and retrieval.",
+        "It's easy to call a high-level RAG chain and get something that looks right, without actually knowing what's happening at each stage — or having any numeric way to tell if retrieval quality is good, mediocre, or actively hurting answers.",
       approach:
-        "Built a three-node LangGraph graph — Retriever → Generator → Evaluator — where the Evaluator scores answer grounding against the source documents. Scores below a confidence threshold route back to the Retriever with a refined query, up to N correction cycles.",
+        "Built the indexing and query pipeline stage by stage — load (TextLoader/PyPDFLoader), split (RecursiveCharacterTextSplitter), embed (local all-MiniLM-L6-v2, no API key), store (ChromaDB) — reading the library source at each step rather than trusting a black-box chain. Generation runs against a local Ollama model (qwen3:1.7b), called through raw http.client after tracing a low-level OpenSSL/Windows crash down to the HTTP client implementation itself. Added a hand-curated 21-question golden set scored for Hit@1/3/5 and MRR, plus an LLM-as-judge layer scoring faithfulness, relevance, and completeness.",
       outcome:
-        "Reduced hallucination rate on domain-specific QA benchmarks by 63% over a baseline RAG chain. P95 latency stayed under 4s with Ollama (llama3.2) running locally.",
+        "Hit@1 0.76, Hit@3 0.90, Hit@5 0.95, MRR 0.83 on the golden set. One retrieval weakness — a densely-packed clause that dilutes the embedding — is documented and kept as a known miss rather than hidden. The LLM-as-judge scores (4.95/4.86/4.86 avg) carry an explicit caveat that the judge is the same model generating the answers, so they reflect self-consistency, not independent ground truth. Part 1 (core pipeline) is done and re-verified, including correctly refusing an out-of-scope question instead of hallucinating; Part 2 (the eval harness) is in progress.",
       highlights: [
-        "Self-correction loop with configurable confidence threshold",
-        "FAISS vector store with MMR retrieval for diversity",
-        "Ollama local inference — zero data egress",
-        "LangGraph state machine with typed state channels",
-        "FastAPI streaming endpoint with SSE",
+        "Every library call traced and understood, not just invoked",
+        "Golden-set eval: Hit@1/3/5 and MRR, not eyeballed correctness",
+        "Documents its own known retrieval weakness instead of hiding it",
+        "LLM-as-judge scoring ships with an explicit self-consistency caveat",
+        "Debugging log in the README traces an OpenSSL crash down to the HTTP client layer",
       ],
     },
   },
   {
-    slug: "agent-orchestrator",
-    index: "02",
-    category: "Agent Systems",
-    title: "Multi-Agent Task Orchestrator",
-    description:
-      "A planner/executor agent architecture that decomposes complex tasks, delegates to specialized sub-agents, and reconciles conflicting outputs.",
-    stack: ["LangGraph", "AutoGen", "Redis", "Python"],
-    year: "2025",
-    status: "Production",
-    gradient: "from-[#a855f7] to-[#7c3aed]",
-    results: [
-      { label: "Task Success Rate", value: "91%" },
-      { label: "Avg. Sub-Agents", value: "4-6" },
-      { label: "Cost Reduction", value: "-38%" },
-    ],
-    detail: {
-      problem:
-        "Single-agent LLM workflows break down on multi-step tasks — context gets diluted and error recovery is poor.",
-      approach:
-        "Designed a planner agent that decomposes a task into a DAG of sub-tasks, dispatches each to specialized executor agents, and reconciles results with a critic pass before final synthesis.",
-      outcome:
-        "91% end-to-end task success on internal benchmarks, with a 38% reduction in token cost versus a single large-context agent approach.",
-      highlights: [
-        "DAG-based task decomposition with dependency resolution",
-        "Specialized executor agents per task domain",
-        "Critic pass catches inconsistent sub-agent outputs",
-        "Redis-backed shared state across agent runs",
-      ],
-    },
-  },
-  {
-    slug: "local-inference-gateway",
+    slug: "agenttrace",
     index: "03",
-    category: "Infrastructure",
-    title: "Local Inference Gateway",
+    category: "Developer Tools",
+    title: "AgentTrace — LangGraph Debugger & Visualizer",
     description:
-      "A drop-in API gateway that routes between Ollama, vLLM, and cloud LLM providers based on latency, cost, and data-sensitivity policy.",
-    stack: ["vLLM", "Ollama", "FastAPI", "Docker"],
-    year: "2024",
+      "A local-first observability tool for LangGraph multi-agent runs — attach one callback to an existing graph and get a graph view, a Gantt timeline, and per-step cost/latency, with nothing leaving the machine.",
+    stack: ["Python", "LangGraph", "SQLite", "WebSocket", "Vite"],
+    year: "2026",
     status: "Open Source",
+    gradient: "from-[#22c55e] to-[#16a34a]",
+    results: [
+      { label: "Setup", value: "1-line callback" },
+      { label: "Storage", value: "100% local SQLite" },
+      { label: "Live Updates", value: "WebSocket streaming" },
+    ],
+    detail: {
+      problem:
+        "Debugging a multi-agent LangGraph run usually means print statements or reading raw trace JSON — there's no visual way to see which node called what, how long each step took, or what a retry actually did, without changing the agent's code or sending traces anywhere.",
+      approach:
+        "Ships as a single callback (AgentTraceCallback) that plugs into an existing graph invocation with no changes to agent logic. Every node execution, tool call, and LLM call is captured with timestamps, latency, token usage, and a best-effort USD cost estimate that degrades to \"cost unavailable\" instead of showing a wrong number for unrecognized models. Retries are linked to their prior attempt and rendered as a grouped, dashed edge rather than a disconnected node. Traces write to a local SQLite file, and a Vite-built dashboard reads that same file and streams in-progress runs live over WebSocket.",
+      outcome:
+        "A read-only, local-first, single-user debugging tool — deliberately scoped to not include hosted/multi-user deployment, auth, replaying a run from the UI, or support for agent frameworks other than LangGraph. Ships with full trace export to JSON per run.",
+      highlights: [
+        "One callback, zero changes to existing agent code",
+        "Retries rendered as linked, dashed edges instead of orphaned nodes",
+        "Cost estimation degrades gracefully instead of guessing wrong",
+        "Live WebSocket streaming of in-progress runs into the dashboard",
+        "Nothing leaves the machine — traces and dashboard both read one local SQLite file",
+      ],
+    },
+  },
+  {
+    slug: "brochure-generator",
+    index: "04",
+    category: "Agentic Systems",
+    title: "brochure_generator — Navigation-Agent Brochure Generator",
+    description:
+      "A CLI that turns a company's homepage URL into a styled PDF brochure — not by scraping and dumping links into a prompt, but with a real LangGraph state machine that scores every link it finds and decides where to crawl next.",
+    stack: ["Python", "LangGraph", "BeautifulSoup4", "WeasyPrint", "NVIDIA NIM"],
+    year: "2026",
+    status: "Shipped",
     gradient: "from-[#ec4899] to-[#db2777]",
     results: [
-      { label: "Cost Savings", value: "54%" },
-      { label: "Avg. TTFB", value: "180ms" },
-      { label: "GitHub Stars", value: "1.2K+" },
+      { label: "Approach", value: "Agentic crawl, not scrape" },
+      { label: "Link Scoring", value: "LLM-ranked per page" },
+      { label: "Output", value: "Styled PDF" },
     ],
     detail: {
       problem:
-        "Teams need to route sensitive prompts to local models while still using cloud models for general workloads — without rewriting application code per provider.",
+        "The typical \"AI brochure\" script scrapes a homepage, dumps every link it finds, and prompts an LLM to write copy from whatever text landed in context — with no sense of which pages actually matter or any budget on how much it crawls.",
       approach:
-        "Built an OpenAI-compatible gateway that inspects request metadata (data sensitivity tags, latency budget) and routes to the cheapest model that meets policy, falling back across providers on failure.",
+        "A LangGraph navigation agent fetches a page, parses its links, scores each one for relevance with an LLM call, and decides whether to continue or stop — looping within a max-pages budget instead of a single-shot scrape. A content aggregator cleans and tags each visited page by source URL, a brochure-writer LLM call drafts sections from the aggregated content and chosen tone, and WeasyPrint renders the result into a PDF from an HTML/CSS template. Every LLM JSON output is Pydantic-validated. The console shows the agent's live reasoning — each link's relevance score and which page it visits next.",
       outcome:
-        "Adopted by several internal teams, cutting inference cost by 54% by routing routine traffic to local vLLM instances and reserving cloud models for complex queries.",
+        "Working end-to-end via a single CLI command (python -m brochure_gen <url> --tone investor --max-pages 5). Limitations are called out directly in the README rather than glossed over: no JS-rendered SPA support, no citation/grounding layer, no fact-checking critic pass, no prompt-injection sanitization of scraped content, single-page PDF only — each flagged as a v2 roadmap candidate.",
       highlights: [
-        "OpenAI-compatible API — zero client code changes",
-        "Policy-based routing on data sensitivity and cost",
-        "Automatic failover across providers",
-        "Dockerized, single-binary deploy",
+        "Real agentic crawl: an LLM scores and chooses links within a page budget, not a fixed scrape",
+        "Pydantic-validated JSON at every LLM call boundary",
+        "Live console output of the agent's link-scoring reasoning",
+        "Known limitations documented up front, not discovered by the user",
+        "Roadmap already scoped: citation layer, fact-checking critic, Playwright for JS sites",
       ],
     },
   },
   {
-    slug: "eval-harness",
-    index: "04",
-    category: "MLOps",
-    title: "LLM Regression Eval Harness",
+    slug: "ppt-creation-agent",
+    index: "05",
+    category: "Generative Media",
+    title: "PPT-Creation-agent — AI Narrated Presentation Generator",
     description:
-      "A CI-integrated evaluation suite that catches prompt and model regressions before they reach production, scoring groundedness, latency, and cost per change.",
-    stack: ["Python", "pytest", "LangSmith", "GitHub Actions"],
-    year: "2024",
-    status: "Production",
-    gradient: "from-[#00d4ff] to-[#a855f7]",
+      "Takes a slide deck, a narration script, and a short voice sample, and produces a video of the presentation narrated in that voice — running fully offline by default, with no per-request API cost.",
+    stack: ["Python", "FFmpeg", "LibreOffice", "Chatterbox TTS", "ElevenLabs (optional)"],
+    year: "2026",
+    status: "Shipped",
+    gradient: "from-[#f59e0b] to-[#ea580c]",
     results: [
-      { label: "Regressions Caught", value: "27" },
-      { label: "CI Run Time", value: "6 min" },
-      { label: "Coverage", value: "140+ cases" },
+      { label: "Generation Speed", value: "~11s / 18 words" },
+      { label: "Pipeline Stages", value: "5/5 verified" },
+      { label: "Voice Cost", value: "$0 local default" },
     ],
     detail: {
       problem:
-        "Prompt and model changes shipped without regression coverage — quality drift went unnoticed until users reported it.",
+        "Turning a slide deck and a script into a narrated video normally means either recording yourself reading it out loud, or paying per-request for cloud voice cloning — with no offline, zero-marginal-cost option that still sounds like you.",
       approach:
-        "Built a golden-dataset eval harness that runs on every PR touching prompts or model config, scoring groundedness, latency, and cost deltas against a baseline, gating merges on regressions.",
+        "A pipeline converts the PPTX to slide images, maps narration to slides using [SLIDE N] markers in the script, generates speech from a short reference voice sample, and renders speech plus slide images into a final .mp4. Voice generation defaults to Chatterbox (Resemble AI, MIT-licensed) running fully offline in an isolated environment — no API key, no per-request cost, and the voice sample never leaves the machine, with optional GPU acceleration. ElevenLabs cloud cloning is available but opt-in only. A CLI ties the pipeline together, with a local browser GUI as an alternative for uploading files and generating videos without the command line.",
       outcome:
-        "Caught 27 regressions pre-merge in the first quarter of use, with the full suite running in under 6 minutes inside GitHub Actions.",
+        "All five pipeline milestones are implemented, tested, and verified end-to-end against a real recorded voice sample, with measured performance documented (an 18-word clip generates in ~11s on a GTX 1070). Automated tests run offline against a fixture deck and a fake voice provider, so CI-style testing needs no GPU or API key. Chatterbox was chosen over Coqui XTTS-v2 after Coqui's parent company shut down and its license turned non-commercial-only.",
       highlights: [
-        "140+ golden test cases across task categories",
-        "Groundedness, latency, and cost scored per PR",
-        "LangSmith tracing for failure triage",
-        "Gates merges on regression thresholds",
+        "Fully offline default voice path — no API key, no per-request cost, no data leaving the machine",
+        "GPU or CPU-only voice generation, with an optional cloud provider for higher fidelity",
+        "CLI and a local browser GUI cover both automation and one-off use",
+        "Tests run against a fixture deck and fake voice provider — no GPU needed for CI",
+        "Documented, measured performance rather than a vague \"it's fast\" claim",
+      ],
+    },
+  },
+  {
+    slug: "react-web-search-agent",
+    index: "06",
+    category: "AI Agents",
+    title: "react-web-search-agent — ReAct Web Search Agent",
+    description:
+      "A locally-running agent that searches the web, queries Wikipedia, and solves math — reasoning about which tool to use, calling it, and reading the result, with every step visible in the chat UI. No paid API keys anywhere.",
+    stack: ["LangChain", "Ollama", "Streamlit", "Pydantic v2", "ddgs"],
+    year: "2026",
+    status: "Open Source",
+    gradient: "from-[#a855f7] to-[#7c3aed]",
+    results: [
+      { label: "Pattern", value: "ReAct, visible reasoning" },
+      { label: "Tools", value: "Search + Wiki + Calculator" },
+      { label: "API Cost", value: "$0 fully local" },
+    ],
+    detail: {
+      problem:
+        "Small local models are noticeably less reliable at deciding when to call a tool versus just answering from memory — the usual fix (fine-tuning) is expensive and heavyweight for what's fundamentally a prompting problem.",
+      approach:
+        "Implements the ReAct (Reasoning + Acting) pattern with LangChain's create_agent over a local Ollama model (qwen3:1.7b by default): the agent reasons about which of three tools fits the question — DuckDuckGo search for current events/people/companies, Wikipedia for definitions and concepts, a calculator for arithmetic — calls it, reads the result, and repeats until confident. Every reasoning step is shown live in a Streamlit chat UI. Output is enforced through a Pydantic v2 schema (answer plus real source URLs) so the model can't fabricate a source.",
+      outcome:
+        "A well-written, strict system prompt — not fine-tuning — was the practical fix for the small 1.7B model's tendency to answer from memory instead of calling a tool. Three tools were deliberately chosen to cover three distinct retrieval patterns (live web, structured knowledge, computation), which also makes tool selection easy to demonstrate and verify.",
+      highlights: [
+        "Zero paid API keys — local Ollama model, DuckDuckGo search, Wikipedia library",
+        "Pydantic-enforced output schema prevents fabricated source URLs",
+        "Every ReAct reasoning step visible in the UI, not hidden behind a spinner",
+        "System prompt engineering chosen over fine-tuning as the practical fix for a small model",
+        "MIT licensed",
       ],
     },
   },

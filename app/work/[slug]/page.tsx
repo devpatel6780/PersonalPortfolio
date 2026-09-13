@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { getProject } from "@/lib/projects";
 import { DetailHero } from "@/components/detail/DetailHero";
-import { LoopDiagram } from "@/components/detail/LoopDiagram";
 import { BackLink } from "@/components/detail/BackLink";
 
 interface Props {
@@ -25,8 +24,6 @@ export default async function WorkDetailPage({ params }: Props) {
 
       {/* Body */}
       <article className="mx-auto max-w-3xl px-6 pb-32">
-        {project.slug === "rag-pipeline" && <LoopDiagram />}
-
         <div className="mt-16 grid gap-14">
           <Section label="The Problem" body={project.detail.problem} />
           <Section label="The Approach" body={project.detail.approach} />
