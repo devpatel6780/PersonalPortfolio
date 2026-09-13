@@ -3,13 +3,11 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-const skills = [
-  { name: "LangGraph & Agents", level: 95 },
-  { name: "RAG & Vector Retrieval", level: 92 },
-  { name: "Local Inference (Ollama)", level: 90 },
-  { name: "Python & FastAPI", level: 93 },
-  { name: "Prompt Engineering", level: 88 },
-  { name: "MLOps & Deployment", level: 85 },
+const stats = [
+  { value: "4+ yrs", label: "Hands-on ML/AI experience" },
+  { value: "6", label: "Real shipped AI projects" },
+  { value: "M.S.", label: "Computer Science, UW–Milwaukee" },
+  { value: "Remote", label: "Open to opportunities" },
 ];
 
 export function AboutSection() {
@@ -54,32 +52,34 @@ export function AboutSection() {
               style={{ background: "var(--glass-bg)" }}
             >
               <h3 className="mb-6" style={{ fontSize: "2rem", fontWeight: 700, color: "#00d4ff" }}>
-                AI Engineer
+                AI/ML Engineer
               </h3>
               <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
-                I build AI systems that hold up under real workloads — retrieval
-                pipelines, agentic loops, and inference infrastructure where
-                correctness is the only metric that matters.
+                I build end-to-end machine learning and LLM-powered
+                applications — RAG systems, semantic search, and scalable
+                inference pipelines — with Python, PyTorch, Hugging Face,
+                LangChain, and FastAPI.
               </p>
               <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
-                I tend to build local-first with Ollama and FAISS, then graduate
-                to cloud infra when the use case demands it. My focus is on
-                systems that self-correct instead of silently failing.
+                My background spans healthcare ML research, enterprise
+                deployment, and hands-on LLM application work, with a
+                consistent focus on MLOps, prompt engineering, and shipping
+                AI systems that are actually production-ready.
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="px-4 py-2 bg-[#00d4ff]/10 border border-[#00d4ff]/30 rounded-full">
                   <span className="text-[#00d4ff]" style={{ fontWeight: 600 }}>
-                    Production AI Systems
+                    RAG &amp; Semantic Search
                   </span>
                 </div>
                 <div className="px-4 py-2 bg-[#a855f7]/10 border border-[#a855f7]/30 rounded-full">
                   <span className="text-[#a855f7]" style={{ fontWeight: 600 }}>
-                    Agentic Architectures
+                    Agentic Systems
                   </span>
                 </div>
                 <div className="px-4 py-2 bg-[#ec4899]/10 border border-[#ec4899]/30 rounded-full">
                   <span className="text-[#ec4899]" style={{ fontWeight: 600 }}>
-                    Local-First Inference
+                    MLOps &amp; Deployment
                   </span>
                 </div>
               </div>
@@ -90,29 +90,32 @@ export function AboutSection() {
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="space-y-6"
+            className="grid grid-cols-2 gap-5"
           >
-            {skills.map((skill, index) => (
-              <div key={skill.name}>
-                <div className="flex justify-between mb-2">
-                  <span className="text-gray-900 dark:text-white" style={{ fontWeight: 600, fontSize: "1.125rem" }}>
-                    {skill.name}
-                  </span>
-                  <span className="text-[#00d4ff]" style={{ fontWeight: 600 }}>
-                    {skill.level}%
-                  </span>
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+                className="rounded-2xl p-6 border border-black/10 dark:border-white/10 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.05)] dark:shadow-none"
+                style={{ background: "var(--glass-bg)" }}
+              >
+                <div
+                  className="mb-2"
+                  style={{
+                    fontSize: "2rem",
+                    fontWeight: 800,
+                    background: "linear-gradient(135deg, #00d4ff, #a855f7)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  {stat.value}
                 </div>
-                <div className="h-3 bg-black/[0.04] dark:bg-white/5 rounded-full overflow-hidden backdrop-blur-sm border border-black/10 dark:border-white/10">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={isInView ? { width: `${skill.level}%` } : {}}
-                    transition={{ duration: 1, delay: 0.6 + index * 0.1, ease: "easeOut" }}
-                    className="h-full bg-gradient-to-r from-[#00d4ff] to-[#a855f7] relative overflow-hidden"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
-                  </motion.div>
-                </div>
-              </div>
+                <div className="text-gray-600 dark:text-gray-400 text-sm leading-snug">{stat.label}</div>
+              </motion.div>
             ))}
           </motion.div>
         </div>

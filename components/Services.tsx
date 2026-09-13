@@ -9,7 +9,7 @@ const services = [
     icon: Search,
     title: "RAG Pipeline Design",
     description:
-      "Retrieval-augmented systems with FAISS/Chroma vector stores, hybrid search, and self-correcting feedback loops.",
+      "Retrieval-augmented systems with FAISS, Pinecone, and Chroma vector stores, plus hybrid search over structured and unstructured data.",
     color: "#00d4ff",
   },
   {
@@ -23,7 +23,7 @@ const services = [
     icon: Share2,
     title: "Local Inference",
     description:
-      "Ollama, llama.cpp, and vLLM deployments that keep data on-prem without sacrificing latency or quality.",
+      "Ollama-based local inference that keeps data on-device, with hosted models like NVIDIA NIM when a cloud fit makes more sense.",
     color: "#ec4899",
   },
   {
@@ -44,7 +44,7 @@ const services = [
     icon: BarChart3,
     title: "Evaluation & MLOps",
     description:
-      "Grounding metrics, hallucination tracking, and deployment pipelines that catch regressions before users do.",
+      "Golden-set evaluation harnesses, groundedness scoring, and CI-style regression tests that catch issues before they ship.",
     color: "#ec4899",
   },
 ];

@@ -42,8 +42,9 @@ export function ChatTeaserPanel() {
           className="mr-auto max-w-[85%] rounded-2xl px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200"
           style={{ background: "var(--bubble-bg)" }}
         >
-          My self-correcting RAG pipeline — it grades its own retrievals and
-          re-queries when confidence drops, cutting hallucinations 63%...
+          CareerPilot — a multi-agent system that scores resume-to-job fit,
+          tailors your resume, and drafts cover letters, with a
+          truthfulness guard that catches fabricated claims...
         </motion.div>
       </div>
 
