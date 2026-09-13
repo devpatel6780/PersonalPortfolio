@@ -22,8 +22,7 @@ export function DetailHero({ project }: { project: Project }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease, delay: 0.05 }}
-        className="mb-6 text-4xl font-semibold leading-tight tracking-tight md:text-5xl"
-        style={{ color: "#e2e2e5" }}
+        className="mb-6 text-4xl font-semibold leading-tight tracking-tight text-gray-900 dark:text-white md:text-5xl"
       >
         {project.title}
       </motion.h1>
@@ -32,8 +31,7 @@ export function DetailHero({ project }: { project: Project }) {
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease, delay: 0.12 }}
-        className="text-lg leading-relaxed"
-        style={{ color: "#52525b" }}
+        className="text-lg leading-relaxed text-gray-600 dark:text-gray-400"
       >
         {project.description}
       </motion.p>
@@ -45,30 +43,17 @@ export function DetailHero({ project }: { project: Project }) {
         className="mt-8 flex items-center gap-6"
       >
         <div>
-          <p
-            className="mb-1 font-mono text-[9px] tracking-widest uppercase"
-            style={{ color: "#374151" }}
-          >
+          <p className="mb-1 font-mono text-[9px] tracking-widest uppercase text-gray-400 dark:text-gray-600">
             Year
           </p>
-          <p className="font-mono text-sm" style={{ color: "#52525b" }}>
-            {project.year}
-          </p>
+          <p className="font-mono text-sm text-gray-600 dark:text-gray-400">{project.year}</p>
         </div>
-        <div
-          className="h-8 w-px"
-          style={{ background: "rgba(255,255,255,0.06)" }}
-        />
+        <div className="h-8 w-px bg-black/10 dark:bg-white/10" />
         <div>
-          <p
-            className="mb-1 font-mono text-[9px] tracking-widest uppercase"
-            style={{ color: "#374151" }}
-          >
+          <p className="mb-1 font-mono text-[9px] tracking-widest uppercase text-gray-400 dark:text-gray-600">
             Status
           </p>
-          <p className="font-mono text-sm" style={{ color: "#52525b" }}>
-            {project.status}
-          </p>
+          <p className="font-mono text-sm text-gray-600 dark:text-gray-400">{project.status}</p>
         </div>
       </motion.div>
 
@@ -76,8 +61,7 @@ export function DetailHero({ project }: { project: Project }) {
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ duration: 0.8, ease, delay: 0.3 }}
-        className="mt-12 h-px origin-left"
-        style={{ background: "rgba(255,255,255,0.07)" }}
+        className="mt-12 h-px origin-left bg-black/10 dark:bg-white/10"
       />
     </div>
   );

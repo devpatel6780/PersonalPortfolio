@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/ui/Nav";
-import { CustomCursor } from "@/components/ui/CustomCursor";
 import { ChatWidget } from "@/components/ChatWidget";
 
 const geistSans = Geist({
@@ -34,7 +33,6 @@ export default function RootLayout({
             __html: `(function(){try{if(localStorage.getItem("theme")==="dark"){document.documentElement.classList.add("dark");}}catch(e){}})();`,
           }}
         />
-        <CustomCursor />
         <Nav />
         {children}
         <ChatWidget />

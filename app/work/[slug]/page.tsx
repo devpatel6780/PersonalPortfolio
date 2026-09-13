@@ -14,7 +14,7 @@ export default async function WorkDetailPage({ params }: Props) {
   if (!project) notFound();
 
   return (
-    <main className="min-h-screen" style={{ backgroundColor: "#0c0c0f" }}>
+    <main className="min-h-screen" style={{ backgroundColor: "var(--color-bg)" }}>
       {/* Back nav */}
       <div className="mx-auto max-w-3xl px-6 pt-28">
         <BackLink />
@@ -24,6 +24,24 @@ export default async function WorkDetailPage({ params }: Props) {
 
       {/* Body */}
       <article className="mx-auto max-w-3xl px-6 pb-32">
+        {/* Results */}
+        <div className="grid grid-cols-3 gap-4">
+          {project.results.map((result) => (
+            <div
+              key={result.label}
+              className="rounded-2xl border border-black/10 px-4 py-5 text-center dark:border-white/10"
+              style={{ background: "var(--glass-tint)" }}
+            >
+              <div className="mb-1 font-mono text-lg font-semibold text-[#818cf8] md:text-xl">
+                {result.value}
+              </div>
+              <div className="font-mono text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                {result.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
         <div className="mt-16 grid gap-14">
           <Section label="The Problem" body={project.detail.problem} />
           <Section label="The Approach" body={project.detail.approach} />
@@ -36,15 +54,9 @@ export default async function WorkDetailPage({ params }: Props) {
               {project.detail.highlights.map((h) => (
                 <li
                   key={h}
-                  className="flex items-start gap-3 text-sm leading-relaxed"
-                  style={{ color: "#52525b" }}
+                  className="flex items-start gap-3 text-sm leading-relaxed text-gray-600 dark:text-gray-400"
                 >
-                  <span
-                    style={{ color: "#818cf8" }}
-                    className="mt-0.5 shrink-0"
-                  >
-                    ·
-                  </span>
+                  <span className="mt-0.5 shrink-0 text-[#818cf8]">·</span>
                   {h}
                 </li>
               ))}
@@ -58,11 +70,11 @@ export default async function WorkDetailPage({ params }: Props) {
               {project.stack.map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-md px-3 py-1.5 font-mono text-xs tracking-wider"
+                  className="rounded-md border px-3 py-1.5 font-mono text-xs tracking-wider"
                   style={{
                     backgroundColor: "rgba(129,140,248,0.08)",
                     color: "#818cf8",
-                    border: "1px solid rgba(129,140,248,0.15)",
+                    borderColor: "rgba(129,140,248,0.15)",
                   }}
                 >
                   {tech}
@@ -78,10 +90,7 @@ export default async function WorkDetailPage({ params }: Props) {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p
-      className="font-mono text-[10px] tracking-[0.22em] uppercase"
-      style={{ color: "#818cf8" }}
-    >
+    <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-[#818cf8]">
       {children}
     </p>
   );
@@ -89,11 +98,9 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 function Section({ label, body }: { label: string; body: string }) {
   return (
-    <div>
+    <div className="rounded-2xl border border-black/10 p-6 dark:border-white/10 md:p-8" style={{ background: "var(--glass-tint-soft)" }}>
       <SectionLabel>{label}</SectionLabel>
-      <p className="mt-5 text-base leading-loose" style={{ color: "#52525b" }}>
-        {body}
-      </p>
+      <p className="mt-4 text-base leading-loose text-gray-600 dark:text-gray-400">{body}</p>
     </div>
   );
 }

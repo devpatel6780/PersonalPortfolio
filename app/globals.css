@@ -51,39 +51,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  cursor: none;
   transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-a, button {
-  cursor: none;
 }
 
 ::selection {
   background-color: rgba(0, 212, 255, 0.25);
-}
-
-/* Custom cursor */
-.custom-cursor {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #00d4ff;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0;
-  transition: opacity 0.3s, transform 0.15s;
-  transform: translate(-50%, -50%);
-}
-
-@media (pointer: coarse) {
-  body, a, button {
-    cursor: auto;
-  }
-  .custom-cursor {
-    display: none;
-  }
 }
 
 /* Scroll indicator */
