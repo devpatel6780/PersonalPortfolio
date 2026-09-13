@@ -1,16 +1,18 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { TrendingUp, Award, Users } from "lucide-react";
-import { projects } from "@/lib/projects";
+import { projects, type Project } from "@/lib/projects";
+import { ProjectModal } from "@/components/detail/ProjectModal";
 
 export function WorkSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [selected, setSelected] = useState<Project | null>(null);
 
   return (
+    <>
     <section id="portfolio" className="relative py-32 px-6 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f9f7fd] to-white dark:from-[#0a0a0f] dark:via-[#1a0a2f] dark:to-[#0a0a0f]" />
 
@@ -55,7 +57,11 @@ export function WorkSection() {
                 perspective: "1000px",
               }}
             >
-              <Link href={`/work/${project.slug}`} className="block p-8">
+              <button
+                type="button"
+                onClick={() => setSelected(project)}
+                className="block w-full p-8 text-left"
+              >
               <div
                 className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
               />
@@ -122,11 +128,13 @@ export function WorkSection() {
                   ))}
                 </div>
               </div>
-              </Link>
+              </button>
             </motion.div>
           ))}
         </div>
       </div>
     </section>
+    <ProjectModal project={selected} onClose={() => setSelected(null)} />
+    </>
   );
 }
