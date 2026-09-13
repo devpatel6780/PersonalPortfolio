@@ -1,8 +1,8 @@
 import OpenAI from "openai";
 
 const NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1";
-const CHAT_MODEL = "meta/llama-3.1-8b-instruct";
-const EMBED_MODEL = "nvidia/nv-embedqa-e5-v5";
+const CHAT_MODEL = "meta/llama-3.2-11b-vision-instruct";
+const EMBED_MODEL = "nvidia/nemotron-3-embed-1b";
 
 let client: OpenAI | null = null;
 
