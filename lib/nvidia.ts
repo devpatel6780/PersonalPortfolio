@@ -4,6 +4,11 @@ const NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1";
 const CHAT_MODEL = "meta/llama-3.2-11b-vision-instruct";
 const EMBED_MODEL = "nvidia/nemotron-3-embed-1b";
 
+// The free-tier endpoint occasionally hangs for minutes instead of
+// erroring. Cap requests so a hang fails fast with a clear error
+// instead of leaving the client stuck on "Thinking...".
+const REQUEST_TIMEOUT_MS = 20_000;
+
 let client: OpenAI | null = null;
 
 function getClient(): OpenAI {
@@ -21,38 +26,47 @@ export async function embedTexts(
   texts: string[],
   inputType: "query" | "passage"
 ): Promise<number[][]> {
-  const res = await getClient().embeddings.create({
-    model: EMBED_MODEL,
-    input: texts,
-    // NVIDIA's QA embedding model requires this extra field to distinguish
-    // a search query from the passages it will be matched against.
-    // @ts-expect-error -- NVIDIA-specific extension to the OpenAI embeddings API
-    input_type: inputType,
-    encoding_format: "float",
-  });
+  const res = await getClient().embeddings.create(
+    {
+      model: EMBED_MODEL,
+      input: texts,
+      // NVIDIA's QA embedding model requires this extra field to distinguish
+      // a search query from the passages it will be matched against.
+      // @ts-expect-error -- NVIDIA-specific extension to the OpenAI embeddings API
+      input_type: inputType,
+      encoding_format: "float",
+    },
+    { timeout: REQUEST_TIMEOUT_MS }
+  );
   return res.data.map((d) => d.embedding);
 }
 
 export async function chatComplete(messages: { role: "system" | "user" | "assistant"; content: string }[]) {
-  const res = await getClient().chat.completions.create({
-    model: CHAT_MODEL,
-    messages,
-    temperature: 0.4,
-    max_tokens: 350,
-  });
+  const res = await getClient().chat.completions.create(
+    {
+      model: CHAT_MODEL,
+      messages,
+      temperature: 0.4,
+      max_tokens: 350,
+    },
+    { timeout: REQUEST_TIMEOUT_MS }
+  );
   return res.choices[0]?.message?.content ?? "";
 }
 
 export async function* chatCompleteStream(
   messages: { role: "system" | "user" | "assistant"; content: string }[]
 ): AsyncGenerator<string> {
-  const stream = await getClient().chat.completions.create({
-    model: CHAT_MODEL,
-    messages,
-    temperature: 0.4,
-    max_tokens: 350,
-    stream: true,
-  });
+  const stream = await getClient().chat.completions.create(
+    {
+      model: CHAT_MODEL,
+      messages,
+      temperature: 0.4,
+      max_tokens: 350,
+      stream: true,
+    },
+    { timeout: REQUEST_TIMEOUT_MS }
+  );
   for await (const chunk of stream) {
     const delta = chunk.choices[0]?.delta?.content;
     if (delta) yield delta;

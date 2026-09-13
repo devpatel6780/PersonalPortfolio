@@ -77,12 +77,19 @@ export async function POST(request: Request) {
     const stream = new ReadableStream({
       async start(controller) {
         const encoder = new TextEncoder();
+        let sentAnything = false;
         try {
           for await (const delta of chatCompleteStream(completionMessages)) {
+            sentAnything = true;
             controller.enqueue(encoder.encode(delta));
           }
         } catch (err) {
           console.error("Chat stream error:", err);
+          if (!sentAnything) {
+            controller.enqueue(
+              encoder.encode("Sorry, I ran into a hiccup generating a response — please try asking again.")
+            );
+          }
         } finally {
           controller.close();
         }
