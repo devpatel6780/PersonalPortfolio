@@ -13,6 +13,8 @@ const readout = [
   { value: "Remote", label: "Open to opportunities" },
 ];
 
+const pipeline = ["Ingest", "Retrieve", "Score", "Generate", "Evaluate"];
+
 export function Hero() {
   return (
     <section id="top" className="relative w-full overflow-hidden pb-20 pt-36 md:pb-28 md:pt-44">
@@ -71,6 +73,34 @@ export function Hero() {
               <a href="#contact" className="btn btn-ghost">
                 Get in touch
               </a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.65 }}
+              className="mt-14 overflow-x-auto"
+            >
+              <div className="flex min-w-max items-center">
+                {pipeline.map((stage, i) => (
+                  <div key={stage} className="flex items-center">
+                    <div className="flex flex-col items-center gap-2.5">
+                      <span className="relative flex h-2 w-2 items-center justify-center">
+                        {i === pipeline.length - 1 && (
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+                        )}
+                        <span
+                          className={`relative inline-flex h-2 w-2 rounded-full ${
+                            i === pipeline.length - 1 ? "bg-accent" : "bg-fg-faint"
+                          }`}
+                        />
+                      </span>
+                      <span className="mono-label whitespace-nowrap">{stage}</span>
+                    </div>
+                    {i < pipeline.length - 1 && <span className="mx-3 h-px w-10 bg-border sm:w-16" />}
+                  </div>
+                ))}
+              </div>
             </motion.div>
           </div>
 

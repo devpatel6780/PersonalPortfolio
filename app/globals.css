@@ -42,6 +42,25 @@
   --color-danger: #f87171;
 }
 
+/* One deliberate full-bleed contrast moment (the Contact close) — pinned to
+   the dark palette regardless of the light/dark toggle, so the site opens
+   light and closes dark on purpose, not by accident. */
+.pinned-dark {
+  --color-bg: #0b0d12;
+  --color-surface: #12141b;
+  --color-surface-hover: #181b24;
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
+  --color-fg: #ededf0;
+  --color-fg-muted: #96979f;
+  --color-fg-faint: #5a5b64;
+  --color-accent: #818cf8;
+  --color-accent-fg: #0b0d12;
+  --color-accent-soft: rgba(129, 140, 248, 0.1);
+  --color-success: #4ade80;
+  --color-danger: #f87171;
+}
+
 html {
   scroll-behavior: smooth;
 }

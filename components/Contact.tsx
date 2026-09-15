@@ -57,7 +57,11 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative border-t border-border py-28 md:py-36" ref={ref}>
+    <section
+      id="contact"
+      className="pinned-dark relative border-t border-border bg-bg py-28 text-fg md:py-36"
+      ref={ref}
+    >
       <div className="container-wide">
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
           <motion.div
