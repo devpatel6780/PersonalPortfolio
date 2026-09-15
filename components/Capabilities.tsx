@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { RevealRule } from "@/components/ui/RevealRule";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -52,6 +53,8 @@ export function Capabilities() {
         >
           What I build, and what it&apos;s built with
         </motion.h2>
+
+        <RevealRule className="mb-16" />
 
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
           <div className="space-y-10">

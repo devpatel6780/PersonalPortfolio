@@ -15,12 +15,31 @@ const navLinks = [
 export function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 24);
     handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = navLinks
+      .map((link) => document.querySelector<HTMLElement>(link.href))
+      .filter((el): el is HTMLElement => el !== null);
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(`#${entry.target.id}`);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+    sections.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -39,16 +58,26 @@ export function Nav() {
         </a>
 
         <nav className="hidden items-center gap-8 lg:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="group relative text-sm text-fg-muted transition-colors hover:text-fg"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 h-px w-0 bg-accent transition-all duration-300 group-hover:w-full" />
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href;
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                aria-current={isActive ? "location" : undefined}
+                className={`group relative text-sm transition-colors ${
+                  isActive ? "text-fg" : "text-fg-muted hover:text-fg"
+                }`}
+              >
+                {link.name}
+                <span
+                  className={`absolute -bottom-1 left-0 h-px bg-accent transition-all duration-300 ${
+                    isActive ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
+              </a>
+            );
+          })}
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">

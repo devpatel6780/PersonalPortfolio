@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { RevealRule } from "@/components/ui/RevealRule";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -67,7 +68,9 @@ export function Experience() {
           Experience
         </motion.h2>
 
-        <div className="border-t border-border">
+        <RevealRule />
+
+        <div>
           {timeline.map((item, index) => (
             <motion.div
               key={item.title}

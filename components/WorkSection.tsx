@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { projects, type Project } from "@/lib/projects";
 import { ProjectModal } from "@/components/detail/ProjectModal";
+import { RevealRule } from "@/components/ui/RevealRule";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -36,7 +37,9 @@ export function WorkSection() {
             </motion.p>
           </div>
 
-          <div className="border-t border-border">
+          <RevealRule />
+
+          <div>
             {projects.map((project, index) => (
               <motion.div
                 key={project.slug}
@@ -47,9 +50,13 @@ export function WorkSection() {
                 <button
                   type="button"
                   onClick={() => setSelected(project)}
-                  className="group grid w-full grid-cols-[2.5rem_1fr] gap-x-4 gap-y-4 border-b border-border py-8 text-left transition-colors hover:bg-surface-hover md:grid-cols-[4rem_1fr_auto] md:items-center md:gap-x-8 md:py-10"
+                  className="group relative grid w-full grid-cols-[2.5rem_1fr] gap-x-4 gap-y-4 overflow-hidden border-b border-border py-8 pl-5 text-left transition-colors hover:bg-surface-hover md:grid-cols-[4rem_1fr_auto] md:items-center md:gap-x-8 md:py-10 md:pl-7"
                 >
-                  <span className="mono-label pt-1 text-fg-faint md:pt-0">{project.index}</span>
+                  <span className="absolute inset-y-0 left-0 w-[2px] origin-top scale-y-0 bg-accent transition-transform duration-300 ease-out group-hover:scale-y-100" />
+
+                  <span className="mono-label pt-1 text-fg-faint transition-colors duration-300 group-hover:text-accent md:pt-0">
+                    {project.index}
+                  </span>
 
                   <div className="min-w-0">
                     <p className="mono-label mb-2 text-fg-faint">{project.category}</p>

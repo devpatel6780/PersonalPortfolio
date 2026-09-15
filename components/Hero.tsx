@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { ChatTeaserPanel } from "./ChatTeaserPanel";
+import { MagneticButton } from "./ui/MagneticButton";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -66,10 +67,12 @@ export function Hero() {
               transition={{ duration: 0.7, ease, delay: 0.5 }}
               className="mt-10 flex flex-wrap items-center gap-4"
             >
-              <a href="#work" className="btn btn-primary group">
-                View selected work
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </a>
+              <MagneticButton>
+                <a href="#work" className="btn btn-primary group">
+                  View selected work
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </a>
+              </MagneticButton>
               <a href="#contact" className="btn btn-ghost">
                 Get in touch
               </a>
