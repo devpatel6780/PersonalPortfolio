@@ -6,6 +6,7 @@ import Link from "next/link";
 import { X, ArrowRight } from "lucide-react";
 import type { Project } from "@/lib/projects";
 import { ProjectDetailBody } from "./ProjectDetailBody";
+import { HudCorners } from "@/components/ui/HudCorners";
 
 export function ProjectModal({
   project,
@@ -39,7 +40,7 @@ export function ProjectModal({
           transition={{ duration: 0.2 }}
           onClick={onClose}
         >
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -50,10 +51,14 @@ export function ProjectModal({
             role="dialog"
             aria-modal="true"
             aria-labelledby="project-modal-title"
-            className="relative z-10 w-full max-w-2xl overflow-hidden border border-border bg-bg shadow-xl"
+            className="glass-panel glow-cyan relative z-10 w-full max-w-2xl overflow-hidden rounded-2xl shadow-xl"
           >
+            <HudCorners />
             <div className="relative border-b border-border px-6 py-8 md:px-9 md:py-10">
-              <span className="pointer-events-none absolute -right-2 -top-6 select-none font-mono text-[110px] font-semibold leading-none text-fg opacity-[0.04]">
+              <span
+                className="pointer-events-none absolute -right-2 -top-6 select-none bg-clip-text font-mono text-[110px] font-semibold leading-none text-transparent opacity-[0.14]"
+                style={{ backgroundImage: "linear-gradient(135deg, var(--color-accent), var(--color-accent-2))" }}
+              >
                 {project.index}
               </span>
 

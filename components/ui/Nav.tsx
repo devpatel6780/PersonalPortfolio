@@ -48,11 +48,15 @@ export function Nav() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-        isScrolled ? "border-b border-border bg-bg/85 backdrop-blur-md" : "border-b border-transparent"
+        isScrolled ? "border-b border-border bg-bg/75 backdrop-blur-xl" : "border-b border-transparent"
       }`}
     >
       <div className="container-wide flex h-16 items-center justify-between">
-        <a href="#top" className="font-mono text-sm font-medium tracking-tight text-fg">
+        <a href="#top" className="group flex items-center gap-2 font-mono text-sm font-medium tracking-tight text-fg">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-live)] opacity-70" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--color-live)]" />
+          </span>
           Dev Patel
           <span className="text-accent">.</span>
         </a>
@@ -71,7 +75,7 @@ export function Nav() {
               >
                 {link.name}
                 <span
-                  className={`absolute -bottom-1 left-0 h-px bg-accent transition-all duration-300 ${
+                  className={`absolute -bottom-1 left-0 h-px bg-accent shadow-[0_0_8px_var(--color-accent)] transition-all duration-300 ${
                     isActive ? "w-full" : "w-0 group-hover:w-full"
                   }`}
                 />
@@ -107,7 +111,7 @@ export function Nav() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="overflow-hidden border-t border-border bg-bg lg:hidden"
+            className="glass-panel overflow-hidden border-t-0 lg:hidden"
           >
             <nav className="container-wide flex flex-col gap-1 py-4">
               {navLinks.map((link) => (

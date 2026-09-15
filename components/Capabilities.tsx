@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { RevealRule } from "@/components/ui/RevealRule";
+import { HudCorners } from "@/components/ui/HudCorners";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -66,7 +67,7 @@ export function Capabilities() {
                 transition={{ duration: 0.5, ease, delay: index * 0.08 }}
                 className="flex gap-5 border-t border-border pt-5"
               >
-                <span className="mono-label pt-0.5">{String(index + 1).padStart(2, "0")}</span>
+                <span className="mono-label pt-0.5 text-accent">{String(index + 1).padStart(2, "0")}</span>
                 <div>
                   <h3 className="mb-2 text-lg font-semibold text-fg">{cap.title}</h3>
                   <p className="max-w-md text-[15px] leading-relaxed text-fg-muted">{cap.description}</p>
@@ -79,8 +80,10 @@ export function Capabilities() {
             initial={{ opacity: 0, y: 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease, delay: 0.15 }}
+            className="glass-panel relative rounded-2xl p-8"
           >
-            <p className="mono-label mb-6">Toolkit</p>
+            <HudCorners />
+            <p className="mono-label mb-6 text-accent">Toolkit</p>
             <dl className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
               {toolkit.map((group) => (
                 <div key={group.category}>

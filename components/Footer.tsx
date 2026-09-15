@@ -35,7 +35,7 @@ export function Footer() {
           <button
             onClick={scrollToTop}
             aria-label="Back to top"
-            className="flex h-9 w-9 items-center justify-center border border-border text-fg-muted transition-colors hover:border-border-strong hover:text-fg"
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-fg-muted transition-colors hover:border-accent hover:text-accent"
           >
             <ArrowUp className="h-4 w-4" />
           </button>

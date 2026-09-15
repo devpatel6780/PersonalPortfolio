@@ -12,7 +12,7 @@ export function DetailHero({ project }: { project: Project }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, ease }}
-        className="mono-label mb-5"
+        className="mono-label mb-5 text-accent"
       >
         {project.index} — {project.category}
       </motion.p>
@@ -56,7 +56,7 @@ export function DetailHero({ project }: { project: Project }) {
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ duration: 0.8, ease, delay: 0.3 }}
-        className="mt-12 h-px origin-left bg-border"
+        className="mt-12 h-px origin-left bg-gradient-to-r from-accent via-accent-2/50 to-transparent"
       />
     </div>
   );

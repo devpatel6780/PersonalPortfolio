@@ -13,7 +13,9 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#0b0d12",
+          backgroundColor: "#05060b",
+          backgroundImage:
+            "radial-gradient(circle at 75% 15%, rgba(47,224,255,0.25), transparent 55%), radial-gradient(circle at 10% 90%, rgba(176,131,255,0.18), transparent 50%)",
           padding: "80px",
           fontFamily: "sans-serif",
         }}
@@ -26,10 +28,10 @@ export default function OpengraphImage() {
             fontSize: 22,
             letterSpacing: 4,
             textTransform: "uppercase",
-            color: "#5a5b64",
+            color: "#8b96ac",
           }}
         >
-          AI Engineer — Multi-agent systems &amp; retrieval
+          [ AI Engineer — Multi-agent systems &amp; retrieval ]
         </div>
 
         <div
@@ -40,17 +42,17 @@ export default function OpengraphImage() {
             fontWeight: 600,
             lineHeight: 1.08,
             letterSpacing: -2,
-            color: "#ededf0",
+            color: "#eaf3ff",
           }}
         >
           <span>I build AI systems</span>
           <span>
             that show their&nbsp;
-            <span style={{ color: "#818cf8" }}>work.</span>
+            <span style={{ color: "#2fe0ff" }}>work.</span>
           </span>
         </div>
 
-        <div style={{ display: "flex", fontSize: 28, color: "#96979f" }}>Dev Patel</div>
+        <div style={{ display: "flex", fontSize: 28, color: "#8b96ac" }}>Dev Patel</div>
       </div>
     ),
     { ...size }

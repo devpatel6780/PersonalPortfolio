@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Loader2, Sparkles, Mic, MicOff, Volume2, VolumeX } from "lucide-react";
+import { HudCorners } from "./ui/HudCorners";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -197,7 +198,8 @@ export function ChatWidget() {
       <motion.button
         onClick={() => setOpen((o) => !o)}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-6 right-6 z-[60] flex h-13 w-13 items-center justify-center rounded-full bg-accent text-accent-fg shadow-lg transition-transform hover:-translate-y-0.5"
+        className="fixed bottom-6 right-6 z-[60] flex h-13 w-13 items-center justify-center rounded-full text-accent-fg shadow-[0_0_0_1px_rgba(47,224,255,0.4),0_0_30px_-4px_rgba(47,224,255,0.7)] transition-transform hover:-translate-y-0.5"
+        style={{ backgroundImage: "linear-gradient(135deg, var(--color-accent), var(--color-accent-2))" }}
         aria-label={open ? "Close chat" : "Open chat"}
       >
         {open ? <X className="w-5 h-5" /> : <MessageCircle className="w-5 h-5" />}
@@ -213,11 +215,15 @@ export function ChatWidget() {
             role="dialog"
             aria-modal="true"
             aria-label="Chat with an AI assistant trained on Dev's resume and projects"
-            className="fixed bottom-24 right-6 z-[60] flex h-[min(520px,calc(100vh-10rem))] w-[min(380px,calc(100vw-3rem))] flex-col overflow-hidden border border-border bg-surface shadow-xl"
+            className="glass-panel glow-cyan fixed bottom-24 right-6 z-[60] flex h-[min(520px,calc(100vh-10rem))] w-[min(380px,calc(100vw-3rem))] flex-col overflow-hidden rounded-2xl shadow-xl"
           >
+            <HudCorners />
             {/* Header */}
             <div className="flex items-center gap-3 border-b border-border px-5 py-4">
-              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-accent">
+              <div
+                className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md"
+                style={{ backgroundImage: "linear-gradient(135deg, var(--color-accent), var(--color-accent-2))" }}
+              >
                 <Sparkles className="h-4 w-4 text-accent-fg" />
               </div>
               <div className="flex-1">
@@ -242,9 +248,14 @@ export function ChatWidget() {
               {messages.map((m, i) => (
                 <div
                   key={i}
-                  className={`max-w-[85%] rounded-md px-4 py-2.5 text-sm leading-relaxed ${
-                    m.role === "user" ? "ml-auto bg-accent text-accent-fg" : "mr-auto bg-surface-hover text-fg"
+                  className={`max-w-[85%] rounded-lg px-4 py-2.5 text-sm leading-relaxed ${
+                    m.role === "user" ? "ml-auto text-accent-fg" : "mr-auto bg-surface-hover text-fg"
                   }`}
+                  style={
+                    m.role === "user"
+                      ? { backgroundImage: "linear-gradient(120deg, var(--color-accent), var(--color-accent-2))" }
+                      : undefined
+                  }
                 >
                   {m.content}
                 </div>
@@ -332,7 +343,8 @@ export function ChatWidget() {
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
-                className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-accent text-accent-fg transition-opacity disabled:opacity-40"
+                className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-accent-fg transition-opacity disabled:opacity-40"
+                style={{ backgroundImage: "linear-gradient(135deg, var(--color-accent), var(--color-accent-2))" }}
                 aria-label="Send"
               >
                 <Send className="w-4 h-4" />

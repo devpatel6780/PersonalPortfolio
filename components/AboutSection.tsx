@@ -26,7 +26,7 @@ export function AboutSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease, delay: 0.1 }}
-            className="max-w-2xl space-y-6 text-lg leading-relaxed text-fg-muted"
+            className="glass-panel max-w-2xl space-y-6 rounded-2xl p-8 text-lg leading-relaxed text-fg-muted md:p-10"
           >
             <p>
               I&apos;m an AI/ML engineer who cares less about whether a system feels

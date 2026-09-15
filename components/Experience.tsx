@@ -70,16 +70,19 @@ export function Experience() {
 
         <RevealRule />
 
-        <div>
+        <div className="space-y-4 pt-8">
           {timeline.map((item, index) => (
             <motion.div
               key={item.title}
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, ease, delay: index * 0.07 }}
-              className="grid gap-3 border-b border-border py-8 md:grid-cols-[13rem_1fr] md:gap-8 md:py-10"
+              className="glass-panel relative grid gap-3 rounded-2xl p-6 md:grid-cols-[13rem_1fr] md:gap-8 md:p-8"
             >
-              <p className="mono-label pt-1">{item.year}</p>
+              <p className="mono-label flex items-center gap-2 pt-1">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]" />
+                {item.year}
+              </p>
 
               <div>
                 <div className="mb-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">

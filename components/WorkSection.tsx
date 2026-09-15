@@ -37,9 +37,9 @@ export function WorkSection() {
             </motion.p>
           </div>
 
-          <RevealRule />
+          <RevealRule className="mb-8" />
 
-          <div>
+          <div className="space-y-4">
             {projects.map((project, index) => (
               <motion.div
                 key={project.slug}
@@ -50,10 +50,8 @@ export function WorkSection() {
                 <button
                   type="button"
                   onClick={() => setSelected(project)}
-                  className="group relative grid w-full grid-cols-[2.5rem_1fr] gap-x-4 gap-y-4 overflow-hidden border-b border-border py-8 pl-5 text-left transition-colors hover:bg-surface-hover md:grid-cols-[4rem_1fr_auto] md:items-center md:gap-x-8 md:py-10 md:pl-7"
+                  className="glass-panel group relative grid w-full grid-cols-[2.5rem_1fr] gap-x-4 gap-y-4 overflow-hidden rounded-2xl p-6 text-left transition-all duration-300 hover:border-accent hover:shadow-[0_0_32px_-8px_rgba(47,224,255,0.35)] md:grid-cols-[4rem_1fr_auto] md:items-center md:gap-x-8 md:p-8"
                 >
-                  <span className="absolute inset-y-0 left-0 w-[2px] origin-top scale-y-0 bg-accent transition-transform duration-300 ease-out group-hover:scale-y-100" />
-
                   <span className="mono-label pt-1 text-fg-faint transition-colors duration-300 group-hover:text-accent md:pt-0">
                     {project.index}
                   </span>

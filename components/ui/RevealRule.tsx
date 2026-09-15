@@ -14,7 +14,7 @@ export function RevealRule({ delay = 0.2, className = "" }: { delay?: number; cl
       whileInView={{ scaleX: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, ease, delay }}
-      className={`h-px w-full origin-left bg-border ${className}`}
+      className={`h-px w-full origin-left bg-gradient-to-r from-accent via-accent-2/40 to-transparent ${className}`}
     />
   );
 }

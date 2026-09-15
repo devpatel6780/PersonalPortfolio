@@ -5,7 +5,7 @@ export function ProjectDetailBody({ project }: { project: Project }) {
     <>
       <div className="grid grid-cols-3 gap-3">
         {project.results.map((result) => (
-          <div key={result.label} className="border border-border px-3 py-4 text-center">
+          <div key={result.label} className="glass-panel rounded-lg px-3 py-4 text-center">
             <div className="tabular mb-1 text-base font-semibold text-accent md:text-lg">
               {result.value}
             </div>
@@ -35,7 +35,10 @@ export function ProjectDetailBody({ project }: { project: Project }) {
           <SectionLabel>Stack</SectionLabel>
           <div className="mt-4 flex flex-wrap gap-2">
             {project.stack.map((tech) => (
-              <span key={tech} className="border border-border px-3 py-1.5 font-mono text-xs tracking-wide text-fg-muted">
+              <span
+                key={tech}
+                className="rounded-md border border-border px-3 py-1.5 font-mono text-xs tracking-wide text-fg-muted"
+              >
                 {tech}
               </span>
             ))}
@@ -47,12 +50,12 @@ export function ProjectDetailBody({ project }: { project: Project }) {
 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
-  return <p className="mono-label">{children}</p>;
+  return <p className="mono-label text-accent">{children}</p>;
 }
 
 function Section({ label, body }: { label: string; body: string }) {
   return (
-    <div className="border border-border p-5 md:p-6">
+    <div className="glass-panel rounded-xl p-5 md:p-6">
       <SectionLabel>{label}</SectionLabel>
       <p className="mt-3 text-sm leading-loose text-fg-muted md:text-base">{body}</p>
     </div>

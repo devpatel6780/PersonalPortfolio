@@ -10,7 +10,7 @@ function subscribe(callback: () => void) {
 }
 
 function getSnapshot() {
-  return document.documentElement.classList.contains("dark");
+  return document.documentElement.classList.contains("light");
 }
 
 function getServerSnapshot() {
@@ -18,22 +18,22 @@ function getServerSnapshot() {
 }
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
-  const isDark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const isLight = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const toggle = () => {
-    const next = !isDark;
-    document.documentElement.classList.toggle("dark", next);
-    localStorage.setItem("theme", next ? "dark" : "light");
+    const next = !isLight;
+    document.documentElement.classList.toggle("light", next);
+    localStorage.setItem("theme", next ? "light" : "dark");
   };
 
   return (
     <button
       type="button"
       onClick={toggle}
-      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+      aria-label={isLight ? "Switch to dark theme" : "Switch to light theme"}
       className={`flex h-9 w-9 items-center justify-center rounded-md text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg ${className}`}
     >
-      {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+      {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
     </button>
   );
 }

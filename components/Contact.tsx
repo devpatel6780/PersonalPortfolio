@@ -24,7 +24,7 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 const fieldClass =
-  "w-full border border-border bg-transparent px-4 py-3 text-fg placeholder-fg-faint outline-none transition-colors focus:border-accent";
+  "w-full rounded-lg border border-border bg-surface px-4 py-3 text-fg placeholder-fg-faint outline-none backdrop-blur-md transition-all focus:border-accent focus:shadow-[0_0_0_1px_rgba(47,224,255,0.4),0_0_20px_-4px_rgba(47,224,255,0.5)]";
 
 export function Contact() {
   const ref = useRef(null);
@@ -57,17 +57,20 @@ export function Contact() {
   };
 
   return (
-    <section
-      id="contact"
-      className="pinned-dark relative border-t border-border bg-bg py-28 text-fg md:py-36"
-      ref={ref}
-    >
-      <div className="container-wide">
-        <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
+    <section id="contact" className="relative overflow-hidden border-t border-border py-28 md:py-36" ref={ref}>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-0 h-[40rem] w-[60rem] -translate-x-1/2 -translate-y-1/3 rounded-full opacity-40 blur-[120px]"
+        style={{ background: "radial-gradient(circle, var(--color-accent-2-soft), transparent 70%)" }}
+      />
+
+      <div className="container-wide relative">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease }}
+            className="glass-panel rounded-2xl p-8 md:p-10"
           >
             <h2 className="mb-6 text-[clamp(2rem,4.5vw,3.5rem)] font-semibold leading-[1.08] tracking-[-0.02em] text-fg">
               Have a system that needs building, fixing, or scaling?
@@ -77,7 +80,7 @@ export function Contact() {
               fastest way to reach me is directly — I read everything myself.
             </p>
 
-            <div className="space-y-5">
+            <div className="space-y-1">
               <a
                 href="mailto:devp70431@gmail.com"
                 className="group flex items-center justify-between border-t border-border py-4 text-fg transition-colors hover:text-accent"
@@ -122,7 +125,7 @@ export function Contact() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease, delay: 0.15 }}
             onSubmit={handleSubmit}
-            className="space-y-5"
+            className="glass-panel space-y-5 rounded-2xl p-8 md:p-10"
           >
             <div>
               <label htmlFor="name" className="mono-label mb-2 block">
