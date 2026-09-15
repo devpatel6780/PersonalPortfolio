@@ -12,7 +12,6 @@ export interface Project {
   stack: string[];
   year: string;
   status: "Shipped" | "In Progress" | "Research" | "Open Source";
-  gradient: string;
   results: ProjectResult[];
   detail: {
     problem: string;
@@ -33,7 +32,6 @@ export const projects: Project[] = [
     stack: ["FastAPI", "LangGraph", "ChromaDB", "Next.js", "NVIDIA NIM", "SQLite"],
     year: "2026",
     status: "In Progress",
-    gradient: "from-[#a855f7] to-[#7c3aed]",
     results: [
       { label: "Match Target", value: "ρ > 0.6" },
       { label: "Score Formula", value: "40% embed + 60% LLM" },
@@ -65,7 +63,6 @@ export const projects: Project[] = [
     stack: ["LangChain", "ChromaDB", "Ollama", "sentence-transformers", "Streamlit"],
     year: "2026",
     status: "Research",
-    gradient: "from-[#00d4ff] to-[#0080ff]",
     results: [
       { label: "Hit@5", value: "0.95" },
       { label: "MRR", value: "0.83" },
@@ -97,7 +94,6 @@ export const projects: Project[] = [
     stack: ["Python", "LangGraph", "SQLite", "WebSocket", "Vite"],
     year: "2026",
     status: "Open Source",
-    gradient: "from-[#22c55e] to-[#16a34a]",
     results: [
       { label: "Setup", value: "1-line callback" },
       { label: "Storage", value: "100% local SQLite" },
@@ -129,7 +125,6 @@ export const projects: Project[] = [
     stack: ["Python", "LangGraph", "BeautifulSoup4", "WeasyPrint", "NVIDIA NIM"],
     year: "2026",
     status: "Shipped",
-    gradient: "from-[#ec4899] to-[#db2777]",
     results: [
       { label: "Approach", value: "Agentic crawl, not scrape" },
       { label: "Link Scoring", value: "LLM-ranked per page" },
@@ -161,7 +156,6 @@ export const projects: Project[] = [
     stack: ["Python", "FFmpeg", "LibreOffice", "Chatterbox TTS", "ElevenLabs (optional)"],
     year: "2026",
     status: "Shipped",
-    gradient: "from-[#f59e0b] to-[#ea580c]",
     results: [
       { label: "Generation Speed", value: "~11s / 18 words" },
       { label: "Pipeline Stages", value: "5/5 verified" },
@@ -193,7 +187,6 @@ export const projects: Project[] = [
     stack: ["LangChain", "Ollama", "Streamlit", "Pydantic v2", "ddgs"],
     year: "2026",
     status: "Open Source",
-    gradient: "from-[#a855f7] to-[#7c3aed]",
     results: [
       { label: "Pattern", value: "ReAct, visible reasoning" },
       { label: "Tools", value: "Search + Wiki + Calculator" },

@@ -2,8 +2,9 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Mail, MapPin, Send, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { ArrowUpRight, Loader2, Send, CheckCircle2, AlertCircle } from "lucide-react";
 
+const ease = [0.16, 1, 0.3, 1] as const;
 type Status = "idle" | "sending" | "sent" | "error";
 
 function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -21,6 +22,9 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+const fieldClass =
+  "w-full border border-border bg-transparent px-4 py-3 text-fg placeholder-fg-faint outline-none transition-colors focus:border-accent";
 
 export function Contact() {
   const ref = useRef(null);
@@ -53,206 +57,156 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-32 px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f7f7fc] to-white dark:from-[#0a0a0f] dark:via-[#0f0a1f] dark:to-[#0a0a0f]" />
-
-      <div className="relative z-10 max-w-7xl mx-auto" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <h2
-            className="mb-4"
-            style={{
-              fontSize: "clamp(2rem, 5vw, 4rem)",
-              fontWeight: 800,
-              background: "linear-gradient(135deg, #00d4ff, #a855f7)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Let&apos;s Work Together
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#00d4ff] to-[#a855f7] mx-auto mb-6" />
-          <p className="text-gray-600 dark:text-gray-300 text-xl max-w-3xl mx-auto">
-            Have an AI system that needs building, fixing, or scaling? Let&apos;s talk.
-          </p>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-12">
+    <section id="contact" className="relative border-t border-border py-28 md:py-36" ref={ref}>
+      <div className="container-wide">
+        <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease }}
           >
-            <div
-              className="p-8 rounded-3xl backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.06)] dark:shadow-none"
-              style={{ background: "var(--glass-bg)" }}
-            >
-              <h3 className="mb-6 text-gray-900 dark:text-white" style={{ fontSize: "1.75rem", fontWeight: 700 }}>
-                Get In Touch
-              </h3>
+            <h2 className="mb-6 text-[clamp(2rem,4.5vw,3.5rem)] font-semibold leading-[1.08] tracking-[-0.02em] text-fg">
+              Have a system that needs building, fixing, or scaling?
+            </h2>
+            <p className="mb-10 max-w-md text-lg leading-relaxed text-fg-muted">
+              I&apos;m open to remote roles and focused collaborations. The
+              fastest way to reach me is directly — I read everything myself.
+            </p>
 
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "linear-gradient(135deg, #00d4ff, #0080ff)" }}
-                  >
-                    <Mail className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-gray-500 dark:text-gray-400 mb-1">Email</div>
-                    <div className="text-gray-900 dark:text-white" style={{ fontWeight: 600 }}>
-                      devp70431@gmail.com
-                    </div>
-                  </div>
-                </div>
+            <div className="space-y-5">
+              <a
+                href="mailto:devp70431@gmail.com"
+                className="group flex items-center justify-between border-t border-border py-4 text-fg transition-colors hover:text-accent"
+              >
+                <span>
+                  <span className="mono-label mb-1 block">Email</span>
+                  <span className="text-base">devp70431@gmail.com</span>
+                </span>
+                <ArrowUpRight className="h-4 w-4 shrink-0 text-fg-faint transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
+              </a>
 
-                <div className="flex items-start gap-4">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "linear-gradient(135deg, #ec4899, #db2777)" }}
-                  >
-                    <MapPin className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-gray-500 dark:text-gray-400 mb-1">Availability</div>
-                    <div className="text-gray-900 dark:text-white" style={{ fontWeight: 600 }}>
-                      Open to remote work
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <a
+                href="https://www.linkedin.com/in/devrakeshpatel/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between border-t border-border py-4 text-fg transition-colors hover:text-accent"
+              >
+                <span className="flex items-center gap-3">
+                  <LinkedinIcon className="h-4 w-4 text-fg-faint" />
+                  <span className="text-base">LinkedIn</span>
+                </span>
+                <ArrowUpRight className="h-4 w-4 shrink-0 text-fg-faint transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
+              </a>
 
-              <div className="mt-8">
-                <div className="text-gray-500 dark:text-gray-400 mb-4">Find me elsewhere</div>
-                <div className="flex gap-4">
-                  <a
-                    href="https://www.linkedin.com/in/devrakeshpatel/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl flex items-center justify-center border border-black/15 dark:border-white/20 hover:border-[#00d4ff] hover:bg-[#00d4ff]/10 transition-all"
-                  >
-                    <LinkedinIcon className="w-6 h-6 text-[#00d4ff]" />
-                  </a>
-                  <a
-                    href="https://github.com/devpatel6780"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl flex items-center justify-center border border-black/15 dark:border-white/20 hover:border-[#00d4ff] hover:bg-[#00d4ff]/10 transition-all"
-                  >
-                    <GithubIcon className="w-6 h-6 text-[#00d4ff]" />
-                  </a>
-                </div>
-              </div>
+              <a
+                href="https://github.com/devpatel6780"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between border-y border-border py-4 text-fg transition-colors hover:text-accent"
+              >
+                <span className="flex items-center gap-3">
+                  <GithubIcon className="h-4 w-4 text-fg-faint" />
+                  <span className="text-base">GitHub</span>
+                </span>
+                <ArrowUpRight className="h-4 w-4 shrink-0 text-fg-faint transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
+              </a>
             </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
+          <motion.form
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease, delay: 0.15 }}
+            onSubmit={handleSubmit}
+            className="space-y-5"
           >
-            <form
-              onSubmit={handleSubmit}
-              className="p-8 rounded-3xl backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.06)] dark:shadow-none"
-              style={{ background: "var(--glass-bg)" }}
+            <div>
+              <label htmlFor="name" className="mono-label mb-2 block">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                autoComplete="name"
+                className={fieldClass}
+                placeholder="Your name"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className="mono-label mb-2 block">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                autoComplete="email"
+                className={fieldClass}
+                placeholder="your.email@example.com"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="message" className="mono-label mb-2 block">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows={5}
+                className={`${fieldClass} resize-none`}
+                placeholder="Tell me about your project..."
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              className="btn btn-primary w-full justify-center disabled:opacity-60"
             >
-              <div className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-gray-900 dark:text-white mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-6 py-4 bg-black/[0.03] dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/50 transition-all"
-                    placeholder="Your name"
-                  />
-                </div>
+              {status === "sending" ? "Sending..." : "Send message"}
+              {status === "sending" ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Send className="h-4 w-4" />
+              )}
+            </button>
 
-                <div>
-                  <label htmlFor="email" className="block text-gray-900 dark:text-white mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-6 py-4 bg-black/[0.03] dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/50 transition-all"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-gray-900 dark:text-white mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={6}
-                    className="w-full px-6 py-4 bg-black/[0.03] dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/50 transition-all resize-none"
-                    placeholder="Tell me about your project..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={status === "sending"}
-                  className="w-full py-4 bg-gradient-to-r from-[#00d4ff] to-[#a855f7] rounded-2xl flex items-center justify-center gap-3 transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(0,212,255,0.6)] disabled:opacity-60 disabled:hover:scale-100 disabled:hover:shadow-none text-white"
+            <div aria-live="polite">
+              {status === "sent" && (
+                <motion.p
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-2 text-sm text-[var(--color-success)]"
                 >
-                  <span style={{ fontSize: "1.125rem", fontWeight: 700 }}>
-                    {status === "sending" ? "Sending..." : "Send Message"}
-                  </span>
-                  {status === "sending" ? (
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                  ) : (
-                    <Send className="w-5 h-5" />
-                  )}
-                </button>
+                  <CheckCircle2 className="h-4 w-4" />
+                  Message sent — I&apos;ll get back to you soon.
+                </motion.p>
+              )}
 
-                {status === "sent" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-2 text-sm"
-                    style={{ color: "#4ade80" }}
-                  >
-                    <CheckCircle2 className="w-4 h-4" />
-                    Message sent — I&apos;ll get back to you soon.
-                  </motion.div>
-                )}
-
-                {status === "error" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-2 text-sm"
-                    style={{ color: "#f87171" }}
-                  >
-                    <AlertCircle className="w-4 h-4" />
-                    Something went wrong — try emailing devp70431@gmail.com directly.
-                  </motion.div>
-                )}
-              </div>
-            </form>
-          </motion.div>
+              {status === "error" && (
+                <motion.p
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-2 text-sm text-[var(--color-danger)]"
+                >
+                  <AlertCircle className="h-4 w-4" />
+                  Something went wrong — try emailing devp70431@gmail.com directly.
+                </motion.p>
+              )}
+            </div>
+          </motion.form>
         </div>
       </div>
     </section>

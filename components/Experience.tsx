@@ -2,16 +2,16 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Briefcase, Award, Target } from "lucide-react";
+
+const ease = [0.16, 1, 0.3, 1] as const;
 
 const timeline = [
   {
     year: "Apr 2026 — Present",
     title: "AI Engineer Intern",
-    company: "Tempus AI, United States",
+    company: "Tempus AI",
     description:
       "Building RAG-based semantic search and LLM inference pipelines for healthcare question-answering applications.",
-    icon: Briefcase,
     achievements: [
       "RAG semantic search workflows with FAISS & Pinecone embeddings",
       "FastAPI inference pipelines for LLM-powered Q&A",
@@ -24,7 +24,6 @@ const timeline = [
     company: "University of Wisconsin–Milwaukee",
     description:
       "Researched deep learning models for medical image classification, with a focus on explainability and minority-class performance.",
-    icon: Award,
     achievements: [
       "90.63% accuracy with EfficientNet-B3 & MobileNetV3",
       "Attention modules (P_scSE, ECA) + MixUp, ROI extraction",
@@ -34,15 +33,21 @@ const timeline = [
   {
     year: "Apr 2022 — Jul 2024",
     title: "Junior ML Engineer",
-    company: "HCL Technologies, India",
+    company: "HCL Technologies",
     description:
       "Built end-to-end ML pipelines and deployment systems for business analytics applications.",
-    icon: Target,
     achievements: [
       "5–10% model performance gains via feature engineering & tuning",
       "REST API deployment with Flask/FastAPI for real-time inference",
       "Docker + CI/CD automation for reproducible model training",
     ],
+  },
+  {
+    year: "May 2026",
+    title: "M.S. Computer Science",
+    company: "University of Wisconsin–Milwaukee",
+    description: "GPA 3.38 / 4.00.",
+    achievements: [],
   },
 ];
 
@@ -51,93 +56,47 @@ export function Experience() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="experience" className="relative py-32 px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f7f7fc] to-white dark:from-[#0a0a0f] dark:via-[#0f0a1f] dark:to-[#0a0a0f]" />
-
-      <div className="relative z-10 max-w-5xl mx-auto" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
+    <section id="experience" className="relative border-t border-border py-28 md:py-36" ref={ref}>
+      <div className="container-wide">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          transition={{ duration: 0.6, ease }}
+          className="mb-16 text-[clamp(2rem,4vw,3.25rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-fg"
         >
-          <h2
-            className="mb-4"
-            style={{
-              fontSize: "clamp(2rem, 5vw, 4rem)",
-              fontWeight: 800,
-              background: "linear-gradient(135deg, #00d4ff, #a855f7)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Experience &amp; Achievements
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#00d4ff] to-[#a855f7] mx-auto mb-6" />
-          <p className="text-gray-600 dark:text-gray-300 text-xl max-w-3xl mx-auto">
-            A track record of shipping AI systems that hold up in production
-          </p>
-        </motion.div>
+          Experience
+        </motion.h2>
 
-        <div className="relative">
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#00d4ff] via-[#a855f7] to-[#ec4899]" />
+        <div className="border-t border-border">
+          {timeline.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 16 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, ease, delay: index * 0.07 }}
+              className="grid gap-3 border-b border-border py-8 md:grid-cols-[13rem_1fr] md:gap-8 md:py-10"
+            >
+              <p className="mono-label pt-1">{item.year}</p>
 
-          <div className="space-y-12">
-            {timeline.map((item, index) => {
-              const Icon = item.icon;
-              const isLeft = index % 2 === 0;
-
-              return (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                  className={`relative flex items-center ${
-                    isLeft ? "md:flex-row" : "md:flex-row-reverse"
-                  } flex-row`}
-                >
-                  <div
-                    className="absolute left-8 md:left-1/2 -translate-x-1/2 w-16 h-16 rounded-full flex items-center justify-center z-10"
-                    style={{
-                      background: "linear-gradient(135deg, #00d4ff, #a855f7)",
-                      boxShadow: "0 0 30px rgba(0, 212, 255, 0.5)",
-                    }}
-                  >
-                    <Icon className="w-8 h-8 text-white" />
-                  </div>
-
-                  <div className={`ml-24 md:ml-0 md:w-5/12 ${isLeft ? "md:pr-16" : "md:pl-16"}`}>
-                    <motion.div
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      className="p-6 rounded-2xl backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-none"
-                      style={{ background: "var(--glass-bg)" }}
-                    >
-                      <div className="text-[#00d4ff] mb-2" style={{ fontWeight: 600 }}>
-                        {item.year}
-                      </div>
-                      <h3 className="text-gray-900 dark:text-white mb-1" style={{ fontSize: "1.25rem", fontWeight: 700 }}>
-                        {item.title}
-                      </h3>
-                      <div className="text-[#a855f7] mb-4" style={{ fontWeight: 600 }}>
-                        {item.company}
-                      </div>
-                      <p className="text-gray-500 dark:text-gray-400 mb-4">{item.description}</p>
-                      <ul className="space-y-2">
-                        {item.achievements.map((achievement) => (
-                          <li key={achievement} className="flex items-start gap-2">
-                            <span className="text-[#00d4ff] mt-1">▸</span>
-                            <span className="text-gray-600 dark:text-gray-300 text-sm">{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+              <div>
+                <div className="mb-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <h3 className="text-lg font-semibold text-fg">{item.title}</h3>
+                  <span className="text-sm text-fg-faint">{item.company}</span>
+                </div>
+                <p className="mb-4 max-w-xl text-[15px] leading-relaxed text-fg-muted">{item.description}</p>
+                {item.achievements.length > 0 && (
+                  <ul className="space-y-1.5">
+                    {item.achievements.map((achievement) => (
+                      <li key={achievement} className="flex items-start gap-2.5 text-sm text-fg-muted">
+                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-fg-faint" />
+                        {achievement}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

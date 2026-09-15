@@ -5,8 +5,8 @@ import Link from "next/link";
 export function BackLink() {
   return (
     <Link
-      href="/#portfolio"
-      className="group inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-gray-500 transition-colors duration-200 hover:text-[#818cf8] dark:text-gray-400"
+      href="/#work"
+      className="group mono-label inline-flex items-center gap-2 transition-colors duration-200 hover:text-accent"
     >
       <span className="transition-transform duration-200 group-hover:-translate-x-1">
         ←

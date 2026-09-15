@@ -14,11 +14,11 @@ export function ScrollProgress() {
         top: 0,
         left: 0,
         right: 0,
-        height: 1,
-        backgroundColor: "#818cf8",
+        height: 2,
+        backgroundColor: "var(--color-accent)",
         transformOrigin: "0%",
         zIndex: 9997,
-        opacity: 0.8,
+        opacity: 0.9,
       }}
     />
   );

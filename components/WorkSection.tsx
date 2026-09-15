@@ -2,9 +2,11 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { TrendingUp, Award, Users } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { projects, type Project } from "@/lib/projects";
 import { ProjectModal } from "@/components/detail/ProjectModal";
+
+const ease = [0.16, 1, 0.3, 1] as const;
 
 export function WorkSection() {
   const ref = useRef(null);
@@ -13,128 +15,75 @@ export function WorkSection() {
 
   return (
     <>
-    <section id="portfolio" className="relative py-32 px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f9f7fd] to-white dark:from-[#0a0a0f] dark:via-[#1a0a2f] dark:to-[#0a0a0f]" />
-
-      <div className="relative z-10 max-w-7xl mx-auto" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <h2
-            className="mb-4"
-            style={{
-              fontSize: "clamp(2rem, 5vw, 4rem)",
-              fontWeight: 800,
-              background: "linear-gradient(135deg, #00d4ff, #a855f7)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Portfolio &amp; Case Studies
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#00d4ff] to-[#a855f7] mx-auto mb-6" />
-          <p className="text-gray-600 dark:text-gray-300 text-xl max-w-3xl mx-auto">
-            Real systems, real metrics — AI engineering that holds up in production
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.slug}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ scale: 1.02, rotateY: 2 }}
-              className="group relative rounded-3xl backdrop-blur-xl border border-black/10 dark:border-white/10 overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.06)] dark:shadow-none"
-              style={{
-                background: "var(--glass-bg)",
-                transformStyle: "preserve-3d",
-                perspective: "1000px",
-              }}
+      <section id="work" className="relative py-28 md:py-36" ref={ref}>
+        <div className="container-wide">
+          <div className="mb-16 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, ease }}
+              className="text-[clamp(2rem,4vw,3.25rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-fg"
             >
-              <button
-                type="button"
-                onClick={() => setSelected(project)}
-                className="block w-full p-8 text-left"
+              Selected work
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="mono-label"
+            >
+              {String(projects.length).padStart(2, "0")} case studies
+            </motion.p>
+          </div>
+
+          <div className="border-t border-border">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.slug}
+                initial={{ opacity: 0, y: 24 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, ease, delay: Math.min(index * 0.06, 0.3) }}
               >
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-              />
+                <button
+                  type="button"
+                  onClick={() => setSelected(project)}
+                  className="group grid w-full grid-cols-[2.5rem_1fr] gap-x-4 gap-y-4 border-b border-border py-8 text-left transition-colors hover:bg-surface-hover md:grid-cols-[4rem_1fr_auto] md:items-center md:gap-x-8 md:py-10"
+                >
+                  <span className="mono-label pt-1 text-fg-faint md:pt-0">{project.index}</span>
 
-              <div className="relative z-10">
-                <div className="mb-6">
-                  <span
-                    className="px-4 py-1 rounded-full text-sm border"
-                    style={{
-                      background: "rgba(0, 212, 255, 0.1)",
-                      borderColor: "rgba(0, 212, 255, 0.3)",
-                      color: "#00d4ff",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {project.category}
-                  </span>
-                </div>
+                  <div className="min-w-0">
+                    <p className="mono-label mb-2 text-fg-faint">{project.category}</p>
+                    <h3 className="mb-2 text-xl font-semibold leading-snug tracking-tight text-fg transition-colors md:text-2xl">
+                      {project.title}
+                    </h3>
+                    <p className="mb-4 max-w-2xl text-[15px] leading-relaxed text-fg-muted">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                      <span className="tabular text-sm font-medium text-fg">
+                        {project.results[0].value}
+                        <span className="ml-1.5 font-normal text-fg-faint">
+                          {project.results[0].label}
+                        </span>
+                      </span>
+                      <span className="hidden h-3 w-px bg-border sm:block" />
+                      <span className="text-sm text-fg-faint">{project.stack.slice(0, 3).join(" · ")}</span>
+                    </div>
+                  </div>
 
-                <h3 className="mb-4 text-gray-900 dark:text-white" style={{ fontSize: "1.75rem", fontWeight: 700 }}>
-                  {project.title}
-                </h3>
-
-                <p className="text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">{project.description}</p>
-
-                <div className="grid grid-cols-3 gap-4">
-                  {project.results.map((result, i) => {
-                    const Icon = [TrendingUp, Award, Users][i % 3];
-                    return (
-                      <div
-                        key={result.label}
-                        className="text-center p-4 rounded-2xl"
-                        style={{ background: "var(--glass-tint)" }}
-                      >
-                        <Icon className="w-5 h-5 mx-auto mb-2 text-[#00d4ff]" />
-                        <div
-                          className="mb-1"
-                          style={{
-                            fontSize: "1.5rem",
-                            fontWeight: 800,
-                            background: "linear-gradient(135deg, #00d4ff, #a855f7)",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            backgroundClip: "text",
-                          }}
-                        >
-                          {result.value}
-                        </div>
-                        <div className="text-gray-500 dark:text-gray-400 text-xs">{result.label}</div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="flex flex-wrap gap-2 mt-6">
-                  {project.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 rounded-full text-xs border border-black/10 dark:border-white/10 text-gray-600 dark:text-gray-300"
-                      style={{ background: "var(--glass-tint-soft)" }}
-                    >
-                      {tech}
+                  <div className="col-span-2 flex items-center justify-between md:col-span-1 md:flex-col md:items-end md:gap-4">
+                    <span className="mono-label text-fg-faint">{project.year} · {project.status}</span>
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border text-fg-faint transition-all duration-300 group-hover:border-accent group-hover:bg-accent-soft group-hover:text-accent">
+                      <ArrowUpRight className="h-4 w-4" />
                     </span>
-                  ))}
-                </div>
-              </div>
-              </button>
-            </motion.div>
-          ))}
+                  </div>
+                </button>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-    <ProjectModal project={selected} onClose={() => setSelected(null)} />
+      </section>
+      <ProjectModal project={selected} onClose={() => setSelected(null)} />
     </>
   );
 }

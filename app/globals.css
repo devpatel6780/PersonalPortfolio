@@ -1,47 +1,63 @@
 @import "tailwindcss";
 @custom-variant dark (&:is(.dark *));
 
+/* ============================================================
+   DESIGN TOKENS
+   One accent, used flat — never as a gradient or a glow.
+   Light mode uses a deeper indigo for contrast on paper;
+   dark mode uses the lighter tone so it never needs a glow to read.
+   ============================================================ */
 @theme {
-  --color-bg: #ffffff;
-  --color-fg: #0a0a0f;
-  --color-neon-blue: #00d4ff;
-  --color-neon-purple: #a855f7;
-  --color-neon-pink: #ec4899;
+  --color-bg: #faf9f7;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f2f1ee;
+  --color-border: rgba(17, 17, 23, 0.1);
+  --color-border-strong: rgba(17, 17, 23, 0.18);
+  --color-fg: #121319;
+  --color-fg-muted: #5c5e69;
+  --color-fg-faint: #9798a3;
+  --color-accent: #4f46e5;
+  --color-accent-fg: #ffffff;
+  --color-accent-soft: rgba(79, 70, 229, 0.08);
+  --color-success: #157a3d;
+  --color-danger: #c22929;
 
-  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), monospace;
-}
-
-:root {
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-bg-strong: rgba(255, 255, 255, 0.97);
-  --glass-tint-soft: rgba(10, 10, 15, 0.02);
-  --glass-tint: rgba(10, 10, 15, 0.03);
-  --glass-tint-strong: rgba(10, 10, 15, 0.04);
-  --bubble-bg: rgba(10, 10, 15, 0.04);
-  --bubble-fg: #1f2937;
-  --muted-fg: #6b7280;
-  --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-  --panel-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  --font-sans: var(--font-instrument), "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
 }
 
 .dark {
-  --color-bg: #0a0a0f;
-  --color-fg: #ffffff;
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-bg-strong: rgba(10, 10, 15, 0.95);
-  --glass-tint-soft: rgba(255, 255, 255, 0.03);
-  --glass-tint: rgba(255, 255, 255, 0.05);
-  --glass-tint-strong: rgba(255, 255, 255, 0.06);
-  --bubble-bg: rgba(255, 255, 255, 0.06);
-  --bubble-fg: #e5e7eb;
-  --muted-fg: #9ca3af;
-  --card-shadow: none;
-  --panel-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  --color-bg: #0b0d12;
+  --color-surface: #12141b;
+  --color-surface-hover: #181b24;
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
+  --color-fg: #ededf0;
+  --color-fg-muted: #96979f;
+  --color-fg-faint: #5a5b64;
+  --color-accent: #818cf8;
+  --color-accent-fg: #0b0d12;
+  --color-accent-soft: rgba(129, 140, 248, 0.1);
+  --color-success: #4ade80;
+  --color-danger: #f87171;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {
@@ -51,27 +67,91 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 ::selection {
-  background-color: rgba(0, 212, 255, 0.25);
+  background-color: var(--color-accent);
+  color: var(--color-accent-fg);
 }
 
-/* Scroll indicator */
-@keyframes scroll-hint {
-  0%, 100% { transform: translateY(0); opacity: 0.4; }
-  50%       { transform: translateY(10px); opacity: 1; }
-}
-.animate-scroll-hint {
-  animation: scroll-hint 1.5s ease-in-out infinite;
+/* Visible, consistent focus ring on every interactive element */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
-/* Shimmer for skill bars */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
 }
-.animate-shimmer {
-  animation: shimmer 2s linear infinite;
+
+/* ============================================================
+   SHARED PRIMITIVES
+   Small, reused building blocks so every section reads as one
+   product instead of independently-styled pieces.
+   ============================================================ */
+@layer components {
+  .container-wide {
+    max-width: 88rem; /* 1408px */
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+  .container-base {
+    max-width: 80rem; /* 1280px */
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+  .container-prose {
+    max-width: 42rem; /* 672px */
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-fg-faint);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hairline {
+    border-color: var(--color-border);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8125rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-accent-fg);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--color-fg);
+    border: 1px solid var(--color-border-strong);
+  }
+  .btn-ghost:hover {
+    background-color: var(--color-surface-hover);
+    border-color: var(--color-fg-faint);
+  }
 }

@@ -55,12 +55,15 @@ export function ChatWidget() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
   const lastInputWasVoiceRef = useRef(false);
+  const streamRef = useRef({ text: "", started: false });
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, loading]);
 
   useEffect(() => {
+    // Feature detection must run client-side after mount to avoid an SSR/hydration mismatch.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVoiceSupported(Boolean(getSpeechRecognitionCtor() && "speechSynthesis" in window));
     return () => {
       recognitionRef.current?.stop();
@@ -146,8 +149,7 @@ export function ChatWidget() {
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
-      let fullText = "";
-      let started = false;
+      streamRef.current = { text: "", started: false };
 
       while (true) {
         const { done, value } = await reader.read();
@@ -155,20 +157,22 @@ export function ChatWidget() {
         const chunk = decoder.decode(value, { stream: true });
         if (!chunk) continue;
 
-        if (!started) {
-          started = true;
+        if (!streamRef.current.started) {
+          streamRef.current.started = true;
           setLoading(false);
           setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
         }
 
-        fullText += chunk;
+        streamRef.current.text += chunk;
+        const streamedText = streamRef.current.text;
         setMessages((prev) => {
           const updated = [...prev];
-          updated[updated.length - 1] = { role: "assistant", content: fullText };
+          updated[updated.length - 1] = { role: "assistant", content: streamedText };
           return updated;
         });
       }
 
+      const fullText = streamRef.current.text;
       if (fullText) {
         const withFollowUp = `${fullText}\n\nDo you have any further questions?`;
         setMessages((prev) => {
@@ -192,16 +196,11 @@ export function ChatWidget() {
       {/* Floating toggle button */}
       <motion.button
         onClick={() => setOpen((o) => !o)}
-        whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-6 right-6 z-[60] w-14 h-14 rounded-full flex items-center justify-center shadow-lg"
-        style={{
-          background: "linear-gradient(135deg, #00d4ff, #a855f7)",
-          boxShadow: "0 8px 30px rgba(0,212,255,0.35)",
-        }}
+        className="fixed bottom-6 right-6 z-[60] flex h-13 w-13 items-center justify-center rounded-full bg-accent text-accent-fg shadow-lg transition-transform hover:-translate-y-0.5"
         aria-label={open ? "Close chat" : "Open chat"}
       >
-        {open ? <X className="w-6 h-6 text-white" /> : <MessageCircle className="w-6 h-6 text-white" />}
+        {open ? <X className="w-5 h-5" /> : <MessageCircle className="w-5 h-5" />}
       </motion.button>
 
       <AnimatePresence>
@@ -211,31 +210,25 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-24 right-6 z-[60] w-[min(380px,calc(100vw-3rem))] h-[min(520px,calc(100vh-10rem))] rounded-3xl border border-black/10 dark:border-white/10 backdrop-blur-xl flex flex-col overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
-            style={{ background: "var(--glass-bg-strong)" }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Chat with an AI assistant trained on Dev's resume and projects"
+            className="fixed bottom-24 right-6 z-[60] flex h-[min(520px,calc(100vh-10rem))] w-[min(380px,calc(100vw-3rem))] flex-col overflow-hidden border border-border bg-surface shadow-xl"
           >
             {/* Header */}
-            <div
-              className="flex items-center gap-3 px-5 py-4 border-b border-black/10 dark:border-white/10"
-              style={{ background: "var(--glass-tint-soft)" }}
-            >
-              <div
-                className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: "linear-gradient(135deg, #00d4ff, #a855f7)" }}
-              >
-                <Sparkles className="w-4.5 h-4.5 text-white" />
+            <div className="flex items-center gap-3 border-b border-border px-5 py-4">
+              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-accent">
+                <Sparkles className="h-4 w-4 text-accent-fg" />
               </div>
               <div className="flex-1">
-                <p className="text-gray-900 dark:text-white text-sm" style={{ fontWeight: 700 }}>
-                  Ask about Dev
-                </p>
-                <p className="text-[11px] text-gray-500 dark:text-gray-400">RAG-powered · trained on his resume</p>
+                <p className="text-sm font-semibold text-fg">Ask about Dev</p>
+                <p className="text-[11px] text-fg-faint">RAG-powered · trained on his resume</p>
               </div>
               {voiceSupported && (
                 <button
                   type="button"
                   onClick={toggleVoiceOutput}
-                  className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all flex-shrink-0"
+                  className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg"
                   aria-label={voiceEnabled ? "Mute voice replies" : "Unmute voice replies"}
                   title={voiceEnabled ? "Voice replies on" : "Voice replies off"}
                 >
@@ -249,31 +242,23 @@ export function ChatWidget() {
               {messages.map((m, i) => (
                 <div
                   key={i}
-                  className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                    m.role === "user" ? "ml-auto" : "mr-auto"
+                  className={`max-w-[85%] rounded-md px-4 py-2.5 text-sm leading-relaxed ${
+                    m.role === "user" ? "ml-auto bg-accent text-accent-fg" : "mr-auto bg-surface-hover text-fg"
                   }`}
-                  style={
-                    m.role === "user"
-                      ? { background: "linear-gradient(135deg, #00d4ff, #a855f7)", color: "white" }
-                      : { background: "var(--bubble-bg)", color: "var(--bubble-fg)" }
-                  }
                 >
                   {m.content}
                 </div>
               ))}
 
               {loading && (
-                <div
-                  className="mr-auto max-w-[85%] rounded-2xl px-4 py-2.5 text-sm flex items-center gap-2"
-                  style={{ background: "var(--bubble-bg)", color: "var(--muted-fg)" }}
-                >
+                <div className="mr-auto flex max-w-[85%] items-center gap-2 rounded-md bg-surface-hover px-4 py-2.5 text-sm text-fg-muted">
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
                   Thinking...
                 </div>
               )}
 
               {error && (
-                <p className="text-xs text-center" style={{ color: "#f87171" }}>
+                <p className="text-center text-xs text-[var(--color-danger)]" role="alert">
                   {error}
                 </p>
               )}
@@ -284,7 +269,7 @@ export function ChatWidget() {
                     <button
                       key={s}
                       onClick={() => sendMessage(s)}
-                      className="text-left text-xs px-3 py-2 rounded-xl border border-black/10 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-[#00d4ff]/40 hover:bg-[#00d4ff]/5 transition-all"
+                      className="rounded-md border border-border px-3 py-2 text-left text-xs text-fg-muted transition-colors hover:border-border-strong hover:bg-surface-hover"
                     >
                       {s}
                     </button>
@@ -298,9 +283,9 @@ export function ChatWidget() {
                 <button
                   type="button"
                   onClick={toggleListening}
-                  className="flex items-center gap-2 text-xs px-3 py-1.5 rounded-full border border-red-400/40 text-red-500 hover:bg-red-400/10 transition-all"
+                  className="flex items-center gap-2 rounded-full border border-[var(--color-danger)]/40 px-3 py-1.5 text-xs text-[var(--color-danger)] transition-colors hover:bg-[var(--color-danger)]/10"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-danger)]" />
                   Done talking
                 </button>
               </div>
@@ -312,42 +297,45 @@ export function ChatWidget() {
                 e.preventDefault();
                 sendMessage(input);
               }}
-              className="flex items-center gap-2 p-3 border-t border-black/10 dark:border-white/10"
+              className="flex items-center gap-2 border-t border-border p-3"
             >
+              <label htmlFor="chat-input" className="sr-only">
+                Ask a question
+              </label>
               <input
+                id="chat-input"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={isListening ? "Listening..." : "Ask a question..."}
                 disabled={isListening}
-                className="flex-1 px-4 py-2.5 rounded-xl bg-black/[0.03] dark:bg-white/5 border border-black/10 dark:border-white/10 text-gray-900 dark:text-white text-sm placeholder-gray-400 dark:placeholder-gray-500 focus:border-[#00d4ff] focus:outline-none focus:ring-2 focus:ring-[#00d4ff]/30 transition-all disabled:opacity-60"
+                className="flex-1 rounded-md border border-border bg-transparent px-4 py-2.5 text-sm text-fg placeholder-fg-faint outline-none transition-colors focus:border-accent disabled:opacity-60"
               />
               {voiceSupported && (
                 <button
                   type="button"
                   onClick={toggleListening}
                   disabled={loading}
-                  className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 disabled:opacity-40 transition-all border ${
+                  className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md border transition-colors disabled:opacity-40 ${
                     isListening
-                      ? "bg-red-500/15 border-red-500"
-                      : "bg-black/[0.03] dark:bg-white/5 border-black/10 dark:border-white/10"
+                      ? "border-[var(--color-danger)] bg-[var(--color-danger)]/10"
+                      : "border-border hover:bg-surface-hover"
                   }`}
                   aria-label={isListening ? "Stop listening" : "Ask with your voice"}
                 >
                   {isListening ? (
-                    <MicOff className="w-4 h-4 text-red-400 animate-pulse" />
+                    <MicOff className="w-4 h-4 animate-pulse text-[var(--color-danger)]" />
                   ) : (
-                    <Mic className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                    <Mic className="w-4 h-4 text-fg-muted" />
                   )}
                 </button>
               )}
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
-                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 disabled:opacity-40 transition-all"
-                style={{ background: "linear-gradient(135deg, #00d4ff, #a855f7)" }}
+                className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-accent text-accent-fg transition-opacity disabled:opacity-40"
                 aria-label="Send"
               >
-                <Send className="w-4 h-4 text-white" />
+                <Send className="w-4 h-4" />
               </button>
             </form>
           </motion.div>

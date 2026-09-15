@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export function ChatTeaserPanel() {
   const openChat = () => {
@@ -9,54 +9,43 @@ export function ChatTeaserPanel() {
   };
 
   return (
-    <div
-      className="rounded-3xl border border-black/10 dark:border-white/10 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.08)] dark:shadow-none"
-      style={{ background: "var(--glass-bg)" }}
-    >
-      <div className="flex items-center gap-2 mb-5">
-        <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#4ade80] opacity-75" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ade80]" />
+    <div className="border border-border bg-surface p-5">
+      <div className="mb-4 flex items-center gap-2">
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-success)] opacity-70" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--color-success)]" />
         </span>
-        <span className="text-xs text-gray-500 dark:text-gray-400" style={{ letterSpacing: "0.05em" }}>
-          ONLINE — TALK TO MY AI ASSISTANT
-        </span>
+        <span className="mono-label">Ask my AI assistant</span>
       </div>
 
-      <div className="space-y-3 mb-6">
+      <div className="mb-5 space-y-2.5">
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 6 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="ml-auto max-w-[80%] rounded-2xl px-4 py-2.5 text-sm text-white"
-          style={{ background: "linear-gradient(135deg, #00d4ff, #a855f7)" }}
+          className="ml-auto max-w-[85%] rounded-md bg-accent px-3.5 py-2 text-[13px] text-accent-fg"
         >
-          What's your strongest project?
+          What&apos;s your strongest project?
         </motion.div>
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 6 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mr-auto max-w-[85%] rounded-2xl px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200"
-          style={{ background: "var(--bubble-bg)" }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="mr-auto max-w-[92%] rounded-md bg-surface-hover px-3.5 py-2 text-[13px] leading-relaxed text-fg-muted"
         >
-          CareerPilot — a multi-agent system that scores resume-to-job fit,
-          tailors your resume, and drafts cover letters, with a
-          truthfulness guard that catches fabricated claims...
+          CareerPilot — a multi-agent system with a truthfulness guard that
+          catches fabricated resume claims before they ship...
         </motion.div>
       </div>
 
       <button
         onClick={openChat}
-        className="group w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-[#00d4ff]/30 hover:bg-[#00d4ff]/5 transition-all"
+        className="group flex w-full items-center justify-between border border-border px-3.5 py-2.5 text-sm text-fg transition-colors hover:border-border-strong hover:bg-surface-hover"
       >
-        <Sparkles className="w-4 h-4 text-[#00d4ff]" />
-        <span className="text-[#00d4ff] text-sm" style={{ fontWeight: 600 }}>
-          Try asking me something
-        </span>
-        <ArrowRight className="w-4 h-4 text-[#00d4ff] group-hover:translate-x-1 transition-transform" />
+        <span>Try it</span>
+        <ArrowUpRight className="h-4 w-4 text-fg-faint transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </button>
     </div>
   );
