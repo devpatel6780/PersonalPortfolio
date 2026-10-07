@@ -20,7 +20,7 @@ export function Footer() {
           <p className="font-mono text-sm font-medium text-fg">
             Dev Patel<span className="text-accent">.</span>
           </p>
-          <p className="mt-1 text-sm text-fg-faint">AI Engineer — multi-agent systems &amp; retrieval</p>
+          <p className="mt-1 text-sm text-fg-faint">AI Engineer - multi-agent systems &amp; retrieval</p>
         </div>
 
         <nav className="flex flex-wrap gap-x-6 gap-y-2">
@@ -39,7 +39,7 @@ export function Footer() {
           >
             <ArrowUp className="h-4 w-4" />
           </button>
-          <p className="text-xs text-fg-faint">© {new Date().getFullYear()} Dev Patel</p>
+          <p className="text-xs text-fg-faint">(c) {new Date().getFullYear()} Dev Patel</p>
         </div>
       </div>
     </footer>

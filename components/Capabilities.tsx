@@ -11,12 +11,12 @@ const capabilities = [
   {
     title: "Retrieval & search",
     description:
-      "RAG pipelines and hybrid search over FAISS, Pinecone, and Chroma — evaluated with Hit@k and MRR against a golden set, not eyeballed.",
+      "RAG pipelines and hybrid search over FAISS, Pinecone, and Chroma - evaluated with Hit@k and MRR against a golden set, not eyeballed.",
   },
   {
     title: "Agent architectures",
     description:
-      "LangGraph state machines and multi-step agent loops that plan, act, and retry — each subgraph independently testable.",
+      "LangGraph state machines and multi-step agent loops that plan, act, and retry - each subgraph independently testable.",
   },
   {
     title: "Inference infrastructure",
@@ -50,7 +50,7 @@ export function Capabilities() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease }}
-          className="mb-16 max-w-xl text-[clamp(2rem,4vw,3.25rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-fg"
+          className="section-title mb-16 max-w-xl"
         >
           What I build, and what it&apos;s built with
         </motion.h2>
@@ -80,7 +80,7 @@ export function Capabilities() {
             initial={{ opacity: 0, y: 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease, delay: 0.15 }}
-            className="glass-panel relative rounded-2xl p-8"
+            className="glass-panel premium-panel relative p-8"
           >
             <HudCorners />
             <p className="mono-label mb-6 text-accent">Toolkit</p>

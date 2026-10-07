@@ -5,9 +5,8 @@ export interface KnowledgeChunk {
   text: string;
 }
 
-// Project chunks aren't on the resume PDF — they come from the actual
-// project case studies on this site (lib/projects.ts), sourced from Dev's
-// real GitHub repos (github.com/devpatel6780).
+// Supplemental case-study data from this site's projects and Dev's GitHub repos.
+// Current resume entries override matching projects when assembling the corpus.
 const projectChunks: KnowledgeChunk[] = [
   {
     id: "project-careerpilot",
@@ -35,7 +34,12 @@ const projectChunks: KnowledgeChunk[] = [
   },
 ];
 
-// Resume-derived chunks (summary, skills, experience, education, contact)
+// Resume-derived chunks (summary, skills, experience, projects, education, contact)
 // are generated from the actual resume PDF — see scripts/ingest-resume.mjs.
 // Run `npm run ingest` after updating the resume file to regenerate them.
-export const knowledgeBase: KnowledgeChunk[] = [...(resumeChunks as KnowledgeChunk[]), ...projectChunks];
+// Prefer the latest resume for projects it covers; retain other site case studies.
+const resumeIds = new Set(resumeChunks.map((chunk) => chunk.id));
+export const knowledgeBase: KnowledgeChunk[] = [
+  ...(resumeChunks as KnowledgeChunk[]),
+  ...projectChunks.filter((chunk) => !resumeIds.has(chunk.id)),
+];

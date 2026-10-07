@@ -23,7 +23,7 @@ export function WorkSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, ease }}
-              className="text-[clamp(2rem,4vw,3.25rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-fg"
+              className="section-title"
             >
               Selected work
             </motion.h2>
@@ -50,7 +50,7 @@ export function WorkSection() {
                 <button
                   type="button"
                   onClick={() => setSelected(project)}
-                  className="glass-panel group relative grid w-full grid-cols-[2.5rem_1fr] gap-x-4 gap-y-4 overflow-hidden rounded-2xl p-6 text-left transition-all duration-300 hover:border-accent hover:shadow-[0_0_32px_-8px_rgba(47,224,255,0.35)] md:grid-cols-[4rem_1fr_auto] md:items-center md:gap-x-8 md:p-8"
+                  className="glass-panel project-card group relative grid w-full grid-cols-[2.5rem_1fr] gap-x-4 gap-y-4 overflow-hidden p-6 text-left transition-all duration-300 md:grid-cols-[4rem_1fr_auto] md:items-center md:gap-x-8 md:p-8"
                 >
                   <span className="mono-label pt-1 text-fg-faint transition-colors duration-300 group-hover:text-accent md:pt-0">
                     {project.index}
@@ -58,7 +58,7 @@ export function WorkSection() {
 
                   <div className="min-w-0">
                     <p className="mono-label mb-2 text-fg-faint">{project.category}</p>
-                    <h3 className="mb-2 text-xl font-semibold leading-snug tracking-tight text-fg transition-colors md:text-2xl">
+                    <h3 className="mb-2 text-xl font-semibold leading-snug tracking-normal text-fg transition-colors md:text-2xl">
                       {project.title}
                     </h3>
                     <p className="mb-4 max-w-2xl text-[15px] leading-relaxed text-fg-muted">
@@ -72,13 +72,13 @@ export function WorkSection() {
                         </span>
                       </span>
                       <span className="hidden h-3 w-px bg-border sm:block" />
-                      <span className="text-sm text-fg-faint">{project.stack.slice(0, 3).join(" · ")}</span>
+                      <span className="text-sm text-fg-faint">{project.stack.slice(0, 3).join(" / ")}</span>
                     </div>
                   </div>
 
                   <div className="col-span-2 flex items-center justify-between md:col-span-1 md:flex-col md:items-end md:gap-4">
-                    <span className="mono-label text-fg-faint">{project.year} · {project.status}</span>
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border text-fg-faint transition-all duration-300 group-hover:border-accent group-hover:bg-accent-soft group-hover:text-accent">
+                    <span className="mono-label text-fg-faint">{project.year} / {project.status}</span>
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border text-fg-faint transition-all duration-300 group-hover:border-accent group-hover:bg-accent-soft group-hover:text-accent">
                       <ArrowUpRight className="h-4 w-4" />
                     </span>
                   </div>

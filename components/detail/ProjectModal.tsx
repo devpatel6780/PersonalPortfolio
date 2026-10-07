@@ -51,7 +51,7 @@ export function ProjectModal({
             role="dialog"
             aria-modal="true"
             aria-labelledby="project-modal-title"
-            className="glass-panel glow-cyan relative z-10 w-full max-w-2xl overflow-hidden rounded-2xl shadow-xl"
+            className="glass-panel premium-panel glow-cyan relative z-10 w-full max-w-2xl overflow-hidden shadow-xl"
           >
             <HudCorners />
             <div className="relative border-b border-border px-6 py-8 md:px-9 md:py-10">
@@ -71,7 +71,7 @@ export function ProjectModal({
               </button>
 
               <p className="relative mono-label mb-3">
-                {project.category} · {project.status}
+                {project.category} / {project.status}
               </p>
               <h2 id="project-modal-title" className="relative max-w-md text-2xl font-semibold tracking-tight text-fg md:text-3xl">
                 {project.title}

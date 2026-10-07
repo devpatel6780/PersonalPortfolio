@@ -1,70 +1,66 @@
 [
   {
     "id": "summary",
-    "text": "DEV PATEL — Entry-level AI/ML Engineer with hands-on experience building end-to-end machine learning and LLM-powered applications, including RAG systems, semantic search, and scalable inference pipelines. Proficient in Python, SQL, PyTorch, Hugging Face, LangChain, FastAPI, and AWS services such as SageMaker and EC2. Experienced in data preprocessing, ETL pipelines, model evaluation, MLflow experiment tracking, CI/CD workflows, Docker, and vector databases including FAISS and Pinecone. Strong foundation in MLOps, prompt engineering, and deploying production-ready AI solutions with focus on scalability, monitoring, and performance optimization."
+    "text": "Dev Patel — Machine Learning Engineer with hands-on experience building deep learning training workflows, research pipelines, and production ML systems in Python and PyTorch. Developed GPU-based computer vision models achieving 90.63% accuracy, scalable data and augmentation pipelines, and reproducible experiment workflows. Experienced in model training, evaluation, inference services, Linux, Git, Docker, CI/CD, and cross-functional AI/ML engineering."
   },
   {
     "id": "skills-0",
-    "text": "Dev Patel's skills in Programming include: Python, SQL"
+    "text": "Dev Patel's skills in Programming Languages include: Python, SQL"
   },
   {
     "id": "skills-1",
-    "text": "Dev Patel's skills in Machine Learning include: Scikit-learn, XGBoost, Pandas, NumPy"
+    "text": "Dev Patel's skills in Deep Learning include: PyTorch, TensorFlow, CNNs, Transfer Learning, Attention Modules, MixUp"
   },
   {
     "id": "skills-2",
-    "text": "Dev Patel's skills in Deep Learning include: PyTorch, TensorFlow"
+    "text": "Dev Patel's skills in Machine Learning include: Scikit-learn, XGBoost, NumPy, Pandas, Feature Engineering, Hyperparameter Tuning"
   },
   {
     "id": "skills-3",
-    "text": "Dev Patel's skills in NLP / LLM include: Hugging Face, OpenAI API, LangChain, Prompt Engineering, RAG, Semantic Search"
+    "text": "Dev Patel's skills in Research & Evaluation include: Cross-Validation, Model Evaluation, Grad-CAM, Experiment Tracking, MLflow"
   },
   {
     "id": "skills-4",
-    "text": "Dev Patel's skills in Data Engineering include: ETL Pipelines, Data Workflows, Feature Engineering"
+    "text": "Dev Patel's skills in Data & Training Pipelines include: ETL Pipelines, Data Preprocessing, Feature Extraction, Apache Spark"
   },
   {
     "id": "skills-5",
-    "text": "Dev Patel's skills in Databases include: PostgreSQL, MySQL, MongoDB"
+    "text": "Dev Patel's skills in ML Systems & Deployment include: FastAPI, Flask, REST APIs, Model Serving, Inference Pipelines, AWS SageMaker"
   },
   {
     "id": "skills-6",
-    "text": "Dev Patel's skills in Vector DB include: FAISS, Pinecone"
+    "text": "Dev Patel's skills in Engineering Tools include: Git, Linux, Docker, CI/CD, GitHub Actions"
   },
   {
     "id": "skills-7",
-    "text": "Dev Patel's skills in Cloud include: AWS (S3, EC2, SageMaker), Azure ML"
-  },
-  {
-    "id": "skills-8",
-    "text": "Dev Patel's skills in MLOps include: MLflow (experiment tracking, versioning), CI/CD, Docker"
-  },
-  {
-    "id": "skills-9",
-    "text": "Dev Patel's skills in Deployment include: FastAPI, REST APIs, Model Deployment, Inference Pipelines"
-  },
-  {
-    "id": "skills-10",
-    "text": "Dev Patel's skills in Other include: Git, GitHub Actions, Linux, Spark"
+    "text": "Dev Patel's skills in Generative AI & NLP include: Hugging Face, LLMs, RAG, Semantic Search, LangChain, LangGraph, ChromaDB, FAISS, Pinecone"
   },
   {
     "id": "experience-0",
-    "text": "AI Engineer Intern at Tempus AI – United States (Apr 2026 – Present). Assisted in developing RAG-based semantic search workflows using embeddings and vector databases such as FAISS and Pinecone. Supported FastAPI-based inference pipeline development for LLM-powered question-answering applications. Worked on preprocessing and ETL workflows for structured and unstructured healthcare datasets. Contributed to AWS SageMaker model deployment and basic monitoring/logging activities. Performed prompt engineering experiments to improve response relevance for LLM applications. Assisted in experiment tracking and model evaluation using MLflow."
+    "text": "Dev Patel: Graduate Research Assistant Jul. 2025 – Mar. 2026 University of Wisconsin–Milwaukee Milwaukee, WI • Developed and trained a dual-backbone PyTorch CNN (EfficientNet-B3 + MobileNetV3), achieving 90.63% accuracy on medical images • Optimized GPU-based PyTorch training workflows to reduce training time and improve model convergence • Built scalable augmentation and feature-extraction pipelines supporting deep learning training across multiple imaging datasets • Improved minority-class performance using P scSE and ECA attention modules, MixUp, and ROI extraction • Validated model robustness with cross-validation and delivered explainable predictions using Grad-CAM"
   },
   {
-    "id": "experience-1",
-    "text": "Research Assistant at University of Wisconsin Milwaukee, USA (Jul 2025 – Mar 2026). Developed deep learning-based multi-class image classification models (EfficientNet-B3, MobileNetV3), achieving 90.63% accuracy on medical imaging datasets. Implemented attention modules (P_scSE, ECA) and advanced preprocessing (MixUp, ROI extraction) to improve minority class prediction and model generalization. Built data processing pipelines for image augmentation and feature extraction, enabling scalable training workflows across multiple datasets. Conducted model evaluation, cross-validation, and interpretability analysis using Grad-CAM to ensure robustness and explainable AI outputs. Optimized training performance using PyTorch and GPU-based workflows, reducing training time and improving convergence efficiency."
+    "id": "project-careerpilot",
+    "text": "Dev Patel: CareerPilot – Multi-Agent AI Career Assistant | LangGraph, FastAPI, ChromaDB, Next.js, NVIDIA NIM GitHub • Architected a multi-agent system of five self-contained LangGraph subgraphs (resume analysis, job ingestion, matching, tailoring, cover letters) behind a FastAPI backend and Next.js 15 dashboard • Designed hybrid resume–job matching combining 40% embedding similarity (all-MiniLM-L6-v2, ChromaDB) with 60% LLM-judged fit (Llama 3.1 70B), returning structured strengths, gaps, and missing skills • Built an eval-first harness against a hand-labeled golden set, reporting Spearman correlation, precision/recall on missing-skill detection, and confusion matrices • Implemented a truthfulness-guard LLM step that flags any tailored claim not traceable to the source resume, verified by a regression test with an injected fabricated claim"
   },
   {
-    "id": "experience-2",
-    "text": "Junior ML Engineer at HCL Technologies, India (Apr 2022 – Jul 2024). Improved ML model performance by 5–10% through feature engineering, hyperparameter tuning, and data preprocessing using Scikit-learn and XGBoost. Developed end-to-end machine learning pipelines including ETL workflows, model training, and evaluation using Python and SQL. Designed REST API-based deployment solutions using Flask/FastAPI, enabling real-time inference for business analytics applications. Built and supported NLP-based chatbot systems using transformer-based embeddings and early-stage semantic search techniques. Automated model training workflows using Docker and basic CI/CD pipelines, improving model reproducibility and deployment efficiency. Collaborated on data workflows and structured data processing pipelines for large-scale datasets, ensuring data quality and pipeline reliability."
+    "id": "project-agenttrace",
+    "text": "Dev Patel: AgentTrace – LangGraph Observability & Debugging Tool | Python, SQLite, WebSocket, Vite GitHub • Built a pip-installable, local-first tracer that instruments any LangGraph run through a single callback, with zero changes to agent logic • Captured every node, tool, and LLM call with latency, token usage, and cost estimates, linking retried calls to prior attempts • Delivered a web dashboard with graph view, Gantt-style timeline, and live WebSocket streaming of in-progress runs, plus per-run JSON export"
+  },
+  {
+    "id": "project-rag-architecture",
+    "text": "Dev Patel: RAG Pipeline with Retrieval Evaluation Harness | LangChain, ChromaDB, Hugging Face, Ollama, StreamlitGitHub • Implemented an end-to-end RAG pipeline (load, chunk, embed, HNSW vector store, grounded generation) on a fully local stack with no API keys • Built a 21-question golden-set evaluation achieving Hit@5 of 0.95 and MRR of 0.83, plus LLM-as-judge scoring of faithfulness and relevance • Diagnosed a low-level OpenSSL crash to the HTTP client layer and replaced the SDK with a raw client; added CI with ruff and pytest"
+  },
+  {
+    "id": "project-ppt-creation-agent",
+    "text": "Dev Patel: AI Voice-Cloned Presentation Video Generator | Python, Chatterbox TTS, FFmpeg, LibreOffice GitHub • Built a pipeline that turns a PPTX deck, narration script, and short voice sample into a narrated MP4 in the user’s cloned voice • Designed a pluggable voice-provider layer with offline Chatterbox TTS on GPU or CPU and optional ElevenLabs, keeping voice data on-device by default • Verified end-to-end with real voice samples and built offline automated tests using fixture decks and a mock provider, needing no GPU or API key"
   },
   {
     "id": "education",
-    "text": "Master of Science in Computer Science | University of Wisconsin–Milwaukee, Milwaukee, WI | GPA: 3.38 / 4.00 | May 2026"
+    "text": "Dev Patel's education: University of Wisconsin–Milwaukee Milwaukee, WI Master of Science in Computer Science May 2026"
   },
   {
     "id": "contact",
-    "text": "You can reach Dev Patel by email at devp70431@gmail.com or by phone at (920) 277–3873, on LinkedIn at linkedin.com/in/devrakeshpatel, or on GitHub at github.com/devpatel6780. He is currently open to remote work opportunities."
+    "text": "Dev Patel's location and contact details: Farmington Hills, MI | (920) 277-3873 | devp6780@gmail.com github.com/devpatel6780 | devpatelassistant.vercel.app"
   }
 ]

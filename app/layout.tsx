@@ -1,35 +1,19 @@
 import type { Metadata } from "next";
-import { Instrument_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/ui/Nav";
 import { ChatWidget } from "@/components/ChatWidget";
-import { NoiseOverlay } from "@/components/ui/NoiseOverlay";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 
-const instrumentSans = Instrument_Sans({
-  variable: "--font-instrument",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
-
 const SITE_URL = "https://devpatel.ai";
-const TITLE = "Dev Patel — AI Engineer";
+const TITLE = "Dev Patel - AI Engineer";
 const DESCRIPTION =
-  "AI engineer building multi-agent systems, retrieval pipelines, and inference infrastructure — evaluated against golden sets, not eyeballed. Currently building healthcare RAG at Tempus AI.";
+  "Dev Patel is an AI/ML engineer in Farmington Hills, Michigan, building deep learning workflows, production ML systems, multi-agent applications, and RAG pipelines with Python and PyTorch.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: TITLE,
-    template: "%s — Dev Patel",
+    template: "%s - Dev Patel",
   },
   description: DESCRIPTION,
   keywords: [
@@ -61,7 +45,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${instrumentSans.variable} ${plexMono.variable}`}>
+    <html lang="en">
       <body>
         <script
           dangerouslySetInnerHTML={{
@@ -75,7 +59,6 @@ export default function RootLayout({
           Skip to content
         </a>
         <ScrollProgress />
-        <NoiseOverlay />
         <Nav />
         {children}
         <ChatWidget />

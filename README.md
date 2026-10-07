@@ -39,18 +39,20 @@ flowchart TD
 
 | Stage | Implementation |
 |---|---|
-| **Ingestion** | [`scripts/ingest-resume.mjs`](scripts/ingest-resume.mjs) parses the resume PDF with `pdf-parse`, splitting it into structured chunks (summary, 11 skill categories, 3 job entries, education, contact) using section-header and date-range regex matching. |
+| **Ingestion** | [`scripts/ingest-resume.mjs`](scripts/ingest-resume.mjs) parses the resume PDF with `pdf-parse`, splitting it into structured chunks (summary, 8 skill categories, research experience, 4 projects, education, contact) using section-header and date-range regex matching. |
 | **Embedding** | [`lib/nvidia.ts`](lib/nvidia.ts) calls NVIDIA NIM's `nv-embedqa-e5-v5` model (OpenAI-compatible API) to turn each chunk — and every incoming question — into a vector. |
 | **Retrieval** | [`lib/retrieval.ts`](lib/retrieval.ts) embeds the knowledge base once and caches it in memory, then ranks chunks against the query by cosine similarity, returning the top 4. |
 | **Generation** | [`app/api/chat/route.ts`](app/api/chat/route.ts) builds a guardrailed system prompt from the retrieved chunks and streams the completion from NVIDIA NIM's `meta/llama-3.1-8b-instruct` back to the browser as a raw text stream. |
 | **UI** | [`components/ChatWidget.tsx`](components/ChatWidget.tsx) — a floating chat bubble available on every page, with voice input/output built in. |
 
-**Worth knowing — what this is and isn't:** the vector "store" is an in-memory array, not a dedicated vector database (FAISS/Pinecone). At ~21 chunks, brute-force cosine similarity is the *correct* engineering choice — it's faster than building an index would be at this scale, and a real vector DB only pays off with much larger corpora or persistence requirements neither of which apply here. Embeddings and retrieval are genuinely computed on every request; nothing is hardcoded.
+**Worth knowing — what this is and isn't:** the vector "store" is an in-memory array, not a dedicated vector database (FAISS/Pinecone). At 18 chunks, brute-force cosine similarity is the *correct* engineering choice — it's faster than building an index would be at this scale, and a real vector DB only pays off with much larger corpora or persistence requirements neither of which apply here. Embeddings and retrieval are genuinely computed on every request; nothing is hardcoded.
 
-To regenerate the knowledge base after updating the resume:
+The current resume source is `AIML_Engineer___DevPatel.pdf`. To regenerate the knowledge base after updating it:
 ```bash
 npm run ingest
 ```
+
+The ingestion script captures the summary, eight skill categories, research experience, four projects, education, and contact details. It handles wrapped lines and projects spanning PDF pages, and fails before writing if a required section is missing. Resume project chunks take precedence over older case-study chunks with the same ID; other portfolio projects remain available to the assistant. Restart the server or redeploy after ingestion to load the updated data and rebuild the in-memory embeddings.
 
 ---
 
@@ -160,7 +162,7 @@ scripts/
 
 ## Contact
 
-- Email: devp70431@gmail.com
+- Email: devp6780@gmail.com
 - LinkedIn: [linkedin.com/in/devrakeshpatel](https://www.linkedin.com/in/devrakeshpatel/)
 - GitHub: [github.com/devpatel6780](https://github.com/devpatel6780)
 

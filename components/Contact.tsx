@@ -24,7 +24,7 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 const fieldClass =
-  "w-full rounded-lg border border-border bg-surface px-4 py-3 text-fg placeholder-fg-faint outline-none backdrop-blur-md transition-all focus:border-accent focus:shadow-[0_0_0_1px_rgba(47,224,255,0.4),0_0_20px_-4px_rgba(47,224,255,0.5)]";
+  "w-full rounded-lg border border-border bg-surface px-4 py-3 text-fg placeholder-fg-faint outline-none transition-colors focus:border-accent focus:shadow-[0_0_0_3px_var(--color-accent-soft)]";
 
 export function Contact() {
   const ref = useRef(null);
@@ -60,7 +60,7 @@ export function Contact() {
     <section id="contact" className="relative overflow-hidden border-t border-border py-28 md:py-36" ref={ref}>
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 h-[40rem] w-[60rem] -translate-x-1/2 -translate-y-1/3 rounded-full opacity-40 blur-[120px]"
+        className="pointer-events-none absolute left-1/2 top-0 h-[28rem] w-[52rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40"
         style={{ background: "radial-gradient(circle, var(--color-accent-2-soft), transparent 70%)" }}
       />
 
@@ -70,24 +70,24 @@ export function Contact() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease }}
-            className="glass-panel rounded-2xl p-8 md:p-10"
+            className="glass-panel premium-panel p-8 md:p-10"
           >
-            <h2 className="mb-6 text-[clamp(2rem,4.5vw,3.5rem)] font-semibold leading-[1.08] tracking-[-0.02em] text-fg">
+            <h2 className="section-title mb-6">
               Have a system that needs building, fixing, or scaling?
             </h2>
             <p className="mb-10 max-w-md text-lg leading-relaxed text-fg-muted">
               I&apos;m open to remote roles and focused collaborations. The
-              fastest way to reach me is directly — I read everything myself.
+              fastest way to reach me is directly - I read everything myself.
             </p>
 
             <div className="space-y-1">
               <a
-                href="mailto:devp70431@gmail.com"
+                href="mailto:devp6780@gmail.com"
                 className="group flex items-center justify-between border-t border-border py-4 text-fg transition-colors hover:text-accent"
               >
                 <span>
                   <span className="mono-label mb-1 block">Email</span>
-                  <span className="text-base">devp70431@gmail.com</span>
+                  <span className="text-base">devp6780@gmail.com</span>
                 </span>
                 <ArrowUpRight className="h-4 w-4 shrink-0 text-fg-faint transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
               </a>
@@ -125,7 +125,7 @@ export function Contact() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease, delay: 0.15 }}
             onSubmit={handleSubmit}
-            className="glass-panel space-y-5 rounded-2xl p-8 md:p-10"
+            className="glass-panel premium-panel space-y-5 p-8 md:p-10"
           >
             <div>
               <label htmlFor="name" className="mono-label mb-2 block">
@@ -198,7 +198,7 @@ export function Contact() {
                   className="flex items-center gap-2 text-sm text-[var(--color-success)]"
                 >
                   <CheckCircle2 className="h-4 w-4" />
-                  Message sent — I&apos;ll get back to you soon.
+                  Message sent - I&apos;ll get back to you soon.
                 </motion.p>
               )}
 
@@ -209,7 +209,7 @@ export function Contact() {
                   className="flex items-center gap-2 text-sm text-[var(--color-danger)]"
                 >
                   <AlertCircle className="h-4 w-4" />
-                  Something went wrong — try emailing devp70431@gmail.com directly.
+                  Something went wrong - try emailing devp6780@gmail.com directly.
                 </motion.p>
               )}
             </div>

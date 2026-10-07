@@ -44,7 +44,7 @@ export function ChatWidget() {
     {
       role: "assistant",
       content:
-        "Hey, I'm Dev! Well — an AI version of me, trained on my resume and projects. Ask me anything about my experience, skills, or work.",
+        "Hey, I'm Dev! Well - an AI version of me, trained on my resume and projects. Ask me anything about my experience, skills, or work.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -143,7 +143,7 @@ export function ChatWidget() {
       }
 
       if (!res.body) {
-        setError("Couldn't reach the assistant — try again in a moment.");
+        setError("Couldn't reach the assistant - try again in a moment.");
         setLoading(false);
         return;
       }
@@ -186,7 +186,7 @@ export function ChatWidget() {
         });
       }
     } catch {
-      setError("Couldn't reach the assistant — try again in a moment.");
+      setError("Couldn't reach the assistant - try again in a moment.");
     } finally {
       setLoading(false);
     }
@@ -198,7 +198,7 @@ export function ChatWidget() {
       <motion.button
         onClick={() => setOpen((o) => !o)}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-6 right-6 z-[60] flex h-13 w-13 items-center justify-center rounded-full text-accent-fg shadow-[0_0_0_1px_rgba(47,224,255,0.4),0_0_30px_-4px_rgba(47,224,255,0.7)] transition-transform hover:-translate-y-0.5"
+        className="fixed bottom-6 right-6 z-[60] flex h-13 w-13 items-center justify-center rounded-full text-accent-fg shadow-[0_16px_38px_-22px_rgba(201,164,91,0.9)] transition-transform hover:-translate-y-0.5"
         style={{ backgroundImage: "linear-gradient(135deg, var(--color-accent), var(--color-accent-2))" }}
         aria-label={open ? "Close chat" : "Open chat"}
       >
@@ -215,7 +215,7 @@ export function ChatWidget() {
             role="dialog"
             aria-modal="true"
             aria-label="Chat with an AI assistant trained on Dev's resume and projects"
-            className="glass-panel glow-cyan fixed bottom-24 right-6 z-[60] flex h-[min(520px,calc(100vh-10rem))] w-[min(380px,calc(100vw-3rem))] flex-col overflow-hidden rounded-2xl shadow-xl"
+            className="glass-panel premium-panel glow-cyan fixed bottom-24 right-6 z-[60] flex h-[min(520px,calc(100vh-10rem))] w-[min(380px,calc(100vw-3rem))] flex-col overflow-hidden shadow-xl"
           >
             <HudCorners />
             {/* Header */}
@@ -228,7 +228,7 @@ export function ChatWidget() {
               </div>
               <div className="flex-1">
                 <p className="text-sm font-semibold text-fg">Ask about Dev</p>
-                <p className="text-[11px] text-fg-faint">RAG-powered · trained on his resume</p>
+                <p className="text-[11px] text-fg-faint">RAG-powered / trained on his resume</p>
               </div>
               {voiceSupported && (
                 <button

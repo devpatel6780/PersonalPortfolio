@@ -18,9 +18,12 @@ export function Nav() {
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    const handleScroll = () => {
+      const next = window.scrollY > 24;
+      setIsScrolled((current) => (current === next ? current : next));
+    };
     handleScroll();
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -48,7 +51,7 @@ export function Nav() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-        isScrolled ? "border-b border-border bg-bg/75 backdrop-blur-xl" : "border-b border-transparent"
+        isScrolled ? "border-b border-border bg-bg/95 shadow-[0_10px_30px_-24px_rgba(0,0,0,0.45)]" : "border-b border-transparent"
       }`}
     >
       <div className="container-wide flex h-16 items-center justify-between">
@@ -129,7 +132,7 @@ export function Nav() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="mt-2 py-3 text-base font-medium text-accent"
               >
-                Get in touch →
+                Get in touch {"->"}
               </a>
             </nav>
           </motion.div>

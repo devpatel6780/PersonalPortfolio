@@ -10,7 +10,7 @@ export function ChatTeaserPanel() {
   };
 
   return (
-    <div className="glass-panel glow-cyan relative rounded-2xl p-5">
+    <div className="glass-panel premium-panel glow-cyan relative p-5">
       <HudCorners />
       <div className="mb-4 flex items-center gap-2">
         <span className="relative flex h-1.5 w-1.5">
@@ -38,7 +38,7 @@ export function ChatTeaserPanel() {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="mr-auto max-w-[92%] rounded-lg bg-surface-hover px-3.5 py-2 text-[13px] leading-relaxed text-fg-muted"
         >
-          CareerPilot — a multi-agent system with a truthfulness guard that
+          CareerPilot - a multi-agent system with a truthfulness guard that
           catches fabricated resume claims before they ship...
         </motion.div>
       </div>

@@ -8,21 +8,9 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 const timeline = [
   {
-    year: "Apr 2026 — Present",
-    title: "AI Engineer Intern",
-    company: "Tempus AI",
-    description:
-      "Building RAG-based semantic search and LLM inference pipelines for healthcare question-answering applications.",
-    achievements: [
-      "RAG semantic search workflows with FAISS & Pinecone embeddings",
-      "FastAPI inference pipelines for LLM-powered Q&A",
-      "AWS SageMaker deployment + MLflow experiment tracking",
-    ],
-  },
-  {
-    year: "Jul 2025 — Mar 2026",
-    title: "Research Assistant",
-    company: "University of Wisconsin–Milwaukee",
+    year: "Jul 2025 - Mar 2026",
+    title: "Graduate Research Assistant",
+    company: "University of Wisconsin-Milwaukee",
     description:
       "Researched deep learning models for medical image classification, with a focus on explainability and minority-class performance.",
     achievements: [
@@ -32,22 +20,10 @@ const timeline = [
     ],
   },
   {
-    year: "Apr 2022 — Jul 2024",
-    title: "Junior ML Engineer",
-    company: "HCL Technologies",
-    description:
-      "Built end-to-end ML pipelines and deployment systems for business analytics applications.",
-    achievements: [
-      "5–10% model performance gains via feature engineering & tuning",
-      "REST API deployment with Flask/FastAPI for real-time inference",
-      "Docker + CI/CD automation for reproducible model training",
-    ],
-  },
-  {
     year: "May 2026",
     title: "M.S. Computer Science",
-    company: "University of Wisconsin–Milwaukee",
-    description: "GPA 3.38 / 4.00.",
+    company: "University of Wisconsin-Milwaukee",
+    description: "Master of Science in Computer Science, Milwaukee, WI.",
     achievements: [],
   },
 ];
@@ -63,7 +39,7 @@ export function Experience() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease }}
-          className="mb-16 text-[clamp(2rem,4vw,3.25rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-fg"
+          className="section-title mb-16"
         >
           Experience
         </motion.h2>
@@ -77,7 +53,7 @@ export function Experience() {
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, ease, delay: index * 0.07 }}
-              className="glass-panel relative grid gap-3 rounded-2xl p-6 md:grid-cols-[13rem_1fr] md:gap-8 md:p-8"
+              className="glass-panel premium-panel relative grid gap-3 p-6 md:grid-cols-[13rem_1fr] md:gap-8 md:p-8"
             >
               <p className="mono-label flex items-center gap-2 pt-1">
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]" />

@@ -17,7 +17,7 @@ export function AboutSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease }}
-            className="text-[clamp(2rem,4vw,3.25rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-fg"
+            className="section-title"
           >
             About
           </motion.h2>
@@ -26,25 +26,26 @@ export function AboutSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease, delay: 0.1 }}
-            className="glass-panel max-w-2xl space-y-6 rounded-2xl p-8 text-lg leading-relaxed text-fg-muted md:p-10"
+            className="glass-panel premium-panel max-w-2xl space-y-6 p-8 text-lg leading-relaxed text-fg-muted md:p-10"
           >
             <p>
-              I&apos;m an AI/ML engineer who cares less about whether a system feels
-              impressive in a demo and more about whether it can be measured, and
-              whether it holds up once it&apos;s measured. That habit — an eval
-              harness before a launch post — runs through every project I ship.
+              I build machine learning systems from data preparation and model
+              training through evaluation and inference. My core tools are Python
+              and PyTorch, with an emphasis on reproducible experiments, scalable
+              training pipelines, and clear measures of model quality.
             </p>
             <p>
-              My background spans healthcare ML research at UW–Milwaukee,
-              enterprise deployment work at HCL Technologies, and hands-on LLM
-              application engineering, now continuing at Tempus AI. Across all
-              of it, the throughline is the same: retrieval and agent systems
-              built with Python, PyTorch, LangChain, and FastAPI, shipped with
-              enough MLOps discipline to trust in production.
+              As a Graduate Research Assistant at UW-Milwaukee, I developed a
+              dual-backbone CNN that achieved 90.63% accuracy on medical images,
+              supported by GPU training, attention modules, and Grad-CAM analysis.
+              My projects extend that engineering approach to multi-agent career
+              assistance, LangGraph observability, retrieval evaluation, and
+              voice-generated presentation videos.
             </p>
             <p className="text-fg">
-              Based remotely, open to roles and collaborations where the bar
-              for &quot;does this actually work&quot; is higher than the demo.
+              Based in Farmington Hills, Michigan, with an M.S. in Computer Science
+              from the University of Wisconsin-Milwaukee. I&apos;m open to AI/ML
+              engineering roles and collaborations.
             </p>
           </motion.div>
         </div>

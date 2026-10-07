@@ -20,12 +20,17 @@
 # production
 /build
 
+# generated local artifacts
+/output/
+/tmp/
+
 # misc
 .DS_Store
 *.pem
 
 # personal documents - not for the public repo (generated knowledge JSON is committed instead)
 Dev_AI Engineer Intern.pdf
+AIML_Engineer___DevPatel.pdf
 
 # debug
 npm-debug.log*
