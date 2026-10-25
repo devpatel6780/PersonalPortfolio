@@ -12,6 +12,7 @@ export interface Project {
   stack: string[];
   year: string;
   status: "Shipped" | "In Progress" | "Research" | "Open Source";
+  repoUrl: string;
   results: ProjectResult[];
   detail: {
     problem: string;
@@ -24,6 +25,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: "careerpilot",
+    repoUrl: "https://github.com/devpatel6780/CareerPilot",
     index: "01",
     category: "Multi-Agent Systems",
     title: "CareerPilot - AI Career Assistant",
@@ -55,6 +57,7 @@ export const projects: Project[] = [
   },
   {
     slug: "rag-architecture",
+    repoUrl: "https://github.com/devpatel6780/RAG-Architecture",
     index: "02",
     category: "RAG / Retrieval",
     title: "RAG-Architecture - RAG Built From Scratch",
@@ -86,6 +89,7 @@ export const projects: Project[] = [
   },
   {
     slug: "agenttrace",
+    repoUrl: "https://github.com/devpatel6780/AgentTrace",
     index: "03",
     category: "Developer Tools",
     title: "AgentTrace - LangGraph Debugger & Visualizer",
@@ -117,6 +121,7 @@ export const projects: Project[] = [
   },
   {
     slug: "brochure-generator",
+    repoUrl: "https://github.com/devpatel6780/brochure_generator",
     index: "04",
     category: "Agentic Systems",
     title: "brochure_generator - Navigation-Agent Brochure Generator",
@@ -148,6 +153,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ppt-creation-agent",
+    repoUrl: "https://github.com/devpatel6780/PPT-Creation-agent",
     index: "05",
     category: "Generative Media",
     title: "PPT-Creation-agent - AI Narrated Presentation Generator",
@@ -179,6 +185,7 @@ export const projects: Project[] = [
   },
   {
     slug: "react-web-search-agent",
+    repoUrl: "https://github.com/devpatel6780/react-web-search-agent",
     index: "06",
     category: "AI Agents",
     title: "react-web-search-agent - ReAct Web Search Agent",

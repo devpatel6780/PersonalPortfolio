@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/lib/projects";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -49,6 +50,19 @@ export function DetailHero({ project }: { project: Project }) {
         <div>
           <p className="mono-label mb-1">Status</p>
           <p className="font-mono text-sm text-fg-muted">{project.status}</p>
+        </div>
+        <div className="h-8 w-px bg-border" />
+        <div>
+          <p className="mono-label mb-1">Source</p>
+          <a
+            href={project.repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 font-mono text-sm text-accent transition-opacity hover:opacity-75"
+          >
+            GitHub
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </a>
         </div>
       </motion.div>
 

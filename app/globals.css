@@ -275,6 +275,27 @@ button {
       0 28px 90px -58px rgba(201, 164, 91, 0.95);
   }
 
+  /* Chat widget floats over busy imagery, so it needs an opaque surface. */
+  .chat-panel {
+    background-color: rgba(12, 15, 19, 0.97);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border-color: var(--color-border-strong);
+  }
+
+  .chat-bubble-assistant {
+    background-color: #1a1e24;
+    border: 1px solid var(--color-border);
+  }
+
+  .light .chat-panel {
+    background-color: rgba(255, 255, 255, 0.98);
+  }
+
+  .light .chat-bubble-assistant {
+    background-color: #eef2f1;
+  }
+
   .light .glass-panel {
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.9) inset,

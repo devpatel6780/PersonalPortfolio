@@ -215,7 +215,7 @@ export function ChatWidget() {
             role="dialog"
             aria-modal="true"
             aria-label="Chat with an AI assistant trained on Dev's resume and projects"
-            className="glass-panel premium-panel glow-cyan fixed bottom-24 right-6 z-[60] flex h-[min(520px,calc(100vh-10rem))] w-[min(380px,calc(100vw-3rem))] flex-col overflow-hidden shadow-xl"
+            className="glass-panel chat-panel premium-panel glow-cyan fixed bottom-24 right-6 z-[60] flex h-[min(520px,calc(100vh-10rem))] w-[min(380px,calc(100vw-3rem))] flex-col overflow-hidden shadow-xl"
           >
             <HudCorners />
             {/* Header */}
@@ -249,7 +249,7 @@ export function ChatWidget() {
                 <div
                   key={i}
                   className={`max-w-[85%] rounded-lg px-4 py-2.5 text-sm leading-relaxed ${
-                    m.role === "user" ? "ml-auto text-accent-fg" : "mr-auto bg-surface-hover text-fg"
+                    m.role === "user" ? "ml-auto text-accent-fg" : "mr-auto chat-bubble-assistant text-fg"
                   }`}
                   style={
                     m.role === "user"
@@ -262,7 +262,7 @@ export function ChatWidget() {
               ))}
 
               {loading && (
-                <div className="mr-auto flex max-w-[85%] items-center gap-2 rounded-md bg-surface-hover px-4 py-2.5 text-sm text-fg-muted">
+                <div className="mr-auto flex max-w-[85%] items-center gap-2 rounded-md chat-bubble-assistant px-4 py-2.5 text-sm text-fg-muted">
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
                   Thinking...
                 </div>

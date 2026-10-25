@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import Link from "next/link";
-import { X, ArrowRight } from "lucide-react";
+import { X, ArrowRight, ArrowUpRight } from "lucide-react";
 import type { Project } from "@/lib/projects";
 import { ProjectDetailBody } from "./ProjectDetailBody";
 import { HudCorners } from "@/components/ui/HudCorners";
@@ -84,13 +84,24 @@ export function ProjectModal({
             <div className="max-h-[60vh] overflow-y-auto p-6 md:p-8">
               <ProjectDetailBody project={project} />
 
-              <Link
-                href={`/work/${project.slug}`}
-                className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-accent transition-opacity hover:opacity-75"
-              >
-                View full case study
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <Link
+                  href={`/work/${project.slug}`}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-accent transition-opacity hover:opacity-75"
+                >
+                  View full case study
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+                <a
+                  href={project.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-fg-muted transition-colors hover:text-fg"
+                >
+                  View on GitHub
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
             </div>
           </motion.div>
         </motion.div>
