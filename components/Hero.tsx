@@ -48,7 +48,7 @@ export function Hero() {
             </motion.p>
 
             <h1 className="max-w-4xl text-[clamp(2.65rem,6vw,5.35rem)] font-semibold leading-[1.02] tracking-normal text-fg">
-              {["Production AI systems", "with measurable proof."].map((line, i) => (
+              {["Deep learning & LLM systems,", "trained, evaluated, shipped."].map((line, i) => (
                 <span key={line} className="block overflow-hidden">
                   <motion.span
                     initial={{ y: "100%" }}
@@ -58,14 +58,14 @@ export function Hero() {
                   >
                     {i === 1 ? (
                       <>
-                        with measurable{" "}
+                        trained, evaluated,{" "}
                         <span
                           className="bg-clip-text text-transparent"
                           style={{
                             backgroundImage: "linear-gradient(120deg, var(--color-accent), var(--color-accent-2))",
                           }}
                         >
-                          proof.
+                          shipped.
                         </span>
                       </>
                     ) : (

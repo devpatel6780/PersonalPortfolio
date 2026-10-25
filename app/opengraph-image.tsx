@@ -45,10 +45,10 @@ export default function OpengraphImage() {
             color: "#f7f3ea",
           }}
         >
-          <span>Production AI systems</span>
+          <span>Deep learning &amp; LLM systems,</span>
           <span>
-            with measurable&nbsp;
-            <span style={{ color: "#c9a45b" }}>proof.</span>
+            trained, evaluated,&nbsp;
+            <span style={{ color: "#c9a45b" }}>shipped.</span>
           </span>
         </div>
 
